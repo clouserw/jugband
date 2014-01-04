@@ -4,4 +4,5 @@ Werkzeug==0.9
 gevent==0.13.8
 MarkupSafe==0.18
 greenlet==0.4.1
--e git+https://github.com/podio/podio-py.git#egg=podio-py
+itsdangerous==0.21
+pypodio2==0.1
