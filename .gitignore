@@ -1,0 +1,3 @@
+local.py
+*.py[co]
+*.sw[po]

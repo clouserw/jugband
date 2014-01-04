@@ -1,0 +1,6 @@
+Flask==0.10
+Jinja2==2.7
+Werkzeug==0.9
+gevent==0.13.8
+MarkupSafe==0.18
+greenlet==0.4.1
