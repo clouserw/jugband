@@ -1,0 +1,112 @@
+table {
+    margin: 5px 5px 5px 5px;
+}
+
+td {
+    padding: 2px 2px 2px 2px;
+}
+
+th {
+    color: #55f;
+    width: 50px;
+    height: 80px;
+    -webkit-transform: rotate(-60deg);
+    -moz-transform: rotate(-60deg);
+    -ms-transform: rotate(-60deg);
+    -o-transform: rotate(-60deg);
+}
+
+tr {
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+tr:hover {
+    background-color: #ffe;
+}
+
+.cancelled {
+    background-color: #fee;
+}
+
+.dev, .prod, .ux {
+    display:block;
+}
+
+.dev {
+    color: #ff7400;
+}
+
+.donesies {
+    background-color: #efe;
+}
+
+.heroes {
+    min-width: 150px;
+    text-align: left;
+}
+
+.link {
+    width: 16px;
+    height: 16px;
+}
+
+.na {
+    color: #339;
+    font-size: .9em;
+}
+
+.na:before {
+    content: "n/a";
+}
+
+.no {
+    color: #f77;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.no:before {
+    content: "✘";
+}
+
+.note {
+    border-left: 1px solid #ccc;
+    min-width: 300px;
+    text-align: left;
+}
+
+.priority {
+    color: #050;
+    font-size: .8em;
+    text-align: left;
+}
+
+.prod {
+    color: #889640;
+}
+
+.project {
+    font-weight: bold;
+    min-width: 200px;
+    text-align: left;
+}
+
+.ux {
+    color: #a64b00;
+}
+
+.yes {
+    color: green;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.yes:before {
+    content: "✔";
+}
+
+.yes span {
+    font-size: .8em;
+}
+

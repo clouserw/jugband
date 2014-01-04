@@ -1,2 +1,11 @@
 PODIO_USER = ''
 PODIO_PASS = ''
+PODIO_CLIENT_ID = ''
+PODIO_CLIENT_SECRET = ''
+
+# To find this, I did:
+# c.Space.find_by_url("")
+# xxxxx
+# c.Application.list_in_space(xxxxx)[0]['app_id']
+# yyyyy
+PODIO_APPLICATION = ''
