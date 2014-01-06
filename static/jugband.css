@@ -61,13 +61,13 @@ tr:hover {
 }
 
 .no {
-    color: #f77;
+    color: #fcc;
     font-size: 1.5em;
     font-weight: bold;
 }
 
 .no:before {
-    content: "✘";
+    content: "-";
 }
 
 .note {

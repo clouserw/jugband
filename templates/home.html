@@ -38,11 +38,7 @@
             {%- if item['podio_link'] -%}
               <a href="{{ item['podio_link'] }}#edit" target="_blank"><img class="link" src="static/external_link.svg" /></a>
             {%- endif -%}
-            {% if item['bug'] %}
-              <a href="{{ item['bug'] }}">{{ item['name'] }}</a>
-            {% else %}
-              {{ item['name'] }}
-            {% endif %}
+            {{ item['name'] }}
           </td>
           <td class="heroes"><span class="dev">{{ item['developers'] }}</span><span class="prod">{{ item['product'] }}</span><span class="ux">{{ item['design'] }}</span></td>
           <td class="{{ item['b_concept'] }}"></td>
@@ -51,7 +47,11 @@
           <td class="{{ item['b_secreview'] }}"></td>
           <td class="{{ item['b_pvcyreview'] }}"></td>
           <td class="{{ item['b_handoff'] }}"></td>
-          <td class="{{ item['b_bugsfiled'] }}"></td>
+          <td class="{{ item['b_bugsfiled'] }}">
+            {% if item['bug'] %}
+              <a href="{{ item['bug'] }}"><img class="link" src="static/external_link.svg" /></a>
+            {% endif %}
+          </td>
           <td class="{{ item['b_code'] }}">{% if item['dev_complete'] %}<span>{{ item['dev_complete'] }}%</span>{% endif %}</td>
           <td class="{{ item['b_test'] }}"></td>
           <td class="{{ item['b_launch'] }}"></td>
