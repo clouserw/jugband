@@ -14,7 +14,6 @@
       <tr>
         <th></th>
         <th></th>
-        <th></th>
         <th title="What value are we adding? Do we have interest? Do we have budget? Who is championing the idea?">Concept</th>
         <th title="What is the Scope? Who are our partners? What does it look like?  What is the functionality? How do we measure success? User stories, mockups, and PRDs live here.">Design</th>
         <th title="How are we going to implement this? How will we scale? Do we need hardware or buy-in?">Dev&nbsp;Plan</th>
@@ -33,8 +32,8 @@
     <tbody>
       {% for item in results %}
         <tr class="{{status(item['status'])}}">
-          <td class="priority">{{ item['priority'] }}: {{ item['type'] }}</td>
           <td class="project">
+            <span class="priority">{{ item['priority'] }}: {{ item['type'] }}</span><br />
             {%- if item['podio_link'] -%}
               <a href="{{ item['podio_link'] }}#edit" target="_blank"><img class="link" src="static/external_link.svg" /></a>
             {%- endif -%}

@@ -49,6 +49,7 @@ tr:hover {
 .link {
     width: 16px;
     height: 16px;
+    padding: 1px 1px 1px 1px;
 }
 
 .na {
@@ -79,6 +80,7 @@ tr:hover {
 .priority {
     color: #050;
     font-size: .8em;
+    font-weight: normal;
     text-align: left;
 }
 
