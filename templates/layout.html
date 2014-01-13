@@ -9,6 +9,13 @@
   <link href="/static/jugband.css" rel="stylesheet">
 </head>
 <body>
+  {% block nav %}
+    <div class="nav">
+      <ul>
+        <li><a href="?extrasauce=1">admin</a></li>
+      </ul>
+    </div>
+  {% endblock nav %}
   {% block body %}
   {% endblock body %}
 </body>

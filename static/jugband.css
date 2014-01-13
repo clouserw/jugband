@@ -61,6 +61,10 @@ tr:hover {
     content: "n/a";
 }
 
+.nav {
+    float: right;
+}
+
 .no {
     color: #fcc;
     font-size: 1.5em;
