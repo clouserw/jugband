@@ -31,16 +31,27 @@
     </thead>
     <tbody>
       {% for item in results %}
-        <tr class="{{status(item['status'])}}">
+        <tr id="{{item['name']|safe|lower|replace(" ","_")}}" class="{{status(item['status'])}}">
           <td class="project">
-            <span class="priority">{{ item['priority'] }}: {{ item['type'] }}</span><br />
+            <span class="priority">{{ item['priority'] }}: {{ item['type'] }}
+              {% if item['audience'] %}
+                <span class="audience" title="{{item['audience_breakdown']}}">
+                  <span class="{% if 'consumer' in item['audience'] %}on{% else %}off{% endif %}"></span>
+                  <span class="{% if 'developer' in item['audience'] %}on{% else %}off{% endif %}"></span>
+                  <span class="{% if 'OEM' in item['audience'] %}on{% else %}off{% endif %}"></span>
+                  <span class="{% if 'operator' in item['audience'] %}on{% else %}off{% endif %}"></span>
+                  <span class="{% if 'mozilla' in item['audience'] %}on{% else %}off{% endif %}"></span>
+                </span>
+              {% endif %}
+            </span>
             {%- if item['podio_link'] -%}
               <a href="{{ item['podio_link'] }}#edit" target="_blank"><img class="link" src="static/external_link.svg" /></a>
             {%- endif -%}
             {{ item['name'] }}
           </td>
           <td class="heroes"><span class="dev">{{ item['developers'] }}</span><span class="prod">{{ item['product'] }}</span><span class="ux">{{ item['design'] }}</span></td>
-          <td class="{{ item['b_concept'] }}"></td>
+          <td class="{{ item['b_concept'] }}">
+          </td>
           <td class="{{ item['b_design'] }}">{% if item['prd'] %}<a href="{{ item['prd'] }}" target="_blank"><img class="link" src="static/external_link.svg" /></a>{% endif %}</td>
           <td class="{{ item['b_devplan'] }}"></td>
           <td class="{{ item['b_secreview'] }}"></td>

@@ -25,6 +25,30 @@ tr:hover {
     background-color: #ffe;
 }
 
+tr:target {
+    background-color: #ffa;
+}
+
+.audience {
+    font-size: .8em;
+    margin-left: 15px;
+    padding: 0px 2px 0px 2px;
+}
+
+.audience span {
+    display:inline-block;
+    height: 5px;
+    width: 7px;
+}
+
+.audience .on {
+    background-color: green;
+}
+
+.audience .off {
+    background-color: #ccc;
+}
+
 .cancelled {
     background-color: #fee;
 }
@@ -83,6 +107,7 @@ tr:hover {
 
 .priority {
     color: #050;
+    display: block;
     font-size: .8em;
     font-weight: normal;
     text-align: left;

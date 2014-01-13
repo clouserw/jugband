@@ -36,6 +36,13 @@ def home():
             if f['type'] == 'category':
                 o[f['label']] = f['values'][0]['value']['text']
 
+            if f['type'] == 'category' and len(f['values']) > 1:
+
+                o[f['label']] = []
+
+                for v in f['values']:
+                    o[f['label']].append(v['value']['text'])
+
             if f['type'] == 'progress':
                 o[f['label']] = f['values'][0]['value']
 
