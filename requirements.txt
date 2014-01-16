@@ -8,3 +8,4 @@ itsdangerous==0.21
 pypodio2==0.1
 pygithub==1.23.0
 requests==2.2.0
+python-memcached==1.53
