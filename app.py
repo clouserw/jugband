@@ -5,10 +5,15 @@ from flask import render_template
 from flask import request
 from gevent.pywsgi import WSGIServer
 from pypodio2 import api as podio
+from werkzeug.contrib.cache import MemcachedCache
 
 import local
+from utils import calc_milestone
+
+cache = MemcachedCache([os.getenv('MEMCACHE_URL', 'localhost:11211')])
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def home():
@@ -46,12 +51,20 @@ def home():
             if f['type'] == 'progress':
                 o[f['label']] = f['values'][0]['value']
 
+            if f['label'] == 'milestone_override':
+                o['dev_complete'] = calc_milestone(o['milestone_override'])
+
             if f['type'] == 'embed':
                 o[f['label']] = f['values'][0]['embed']['url']
 
         results.append(o)
 
-    results.sort(key=lambda x: (x['status'],x['priority'],x['name']))
+    try:
+        results.sort(key=lambda x: (x['status'],x['priority'],x['name']))
+    except KeyError:
+        pass
+
+
 
     return render_template('home.html', results=results)
 

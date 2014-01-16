@@ -6,3 +6,5 @@ MarkupSafe==0.18
 greenlet==0.4.1
 itsdangerous==0.21
 pypodio2==0.1
+pygithub==1.23.0
+requests==2.2.0

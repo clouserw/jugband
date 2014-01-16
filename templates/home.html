@@ -35,7 +35,7 @@
           <td class="project">
             <span class="priority">{{ item['priority'] }}: {{ item['type'] }}
               {% if item['audience'] %}
-                <span class="audience" title="{{item['audience_breakdown']}}">
+                <span class="audience" title="Audience:  {{item['audience_breakdown']}}">
                   <span class="{% if 'consumer' in item['audience'] %}on{% else %}off{% endif %}"></span>
                   <span class="{% if 'developer' in item['audience'] %}on{% else %}off{% endif %}"></span>
                   <span class="{% if 'OEM' in item['audience'] %}on{% else %}off{% endif %}"></span>
