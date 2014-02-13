@@ -21,12 +21,12 @@ tr {
     text-align: center;
 }
 
-tr:hover {
-    background-color: #ffe;
+tr:hover td {
+    background-color: #ffe !important;
 }
 
-tr:target {
-    background-color: #ffa;
+tr:target td {
+    background-color: #ffa !important;
 }
 
 .audience {
@@ -141,3 +141,25 @@ tr:target {
     font-size: .8em;
 }
 
+
+
+/* Scoreboard */
+
+td.user {
+    background-color: #eef;
+}
+td.mktgoal {
+    background-color: #fef;
+}
+td.internal {
+    background-color: #fee;
+}
+td.mozgoal {
+    background-color: #dee;
+}
+td.end {
+    border-right: 1px solid #000;
+}
+thead {
+    border-bottom: 2px solid #000;
+}

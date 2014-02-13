@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{%- macro status(val) -%}
+  {%- if val == "donesies" -%}
+    donesies
+  {%- elif val == "cancelled" -%}
+    cancelled
+  {%- endif -%}
+{%- endmacro -%}
+
+{% block body %}
+  <table id="output">
+    <thead>
+      <tr>
+        <td colspan="2"></td>
+        <td class="user end" colspan="5">User Value</td>
+        <td class="mktgoal end" colspan="3">Marketplace Goals</td>
+        <td class="internal end" colspan="3">Internal Necessity</td>
+        <td class="mozgoal end" colspan="5">Company Goals</td>
+      </tr>
+      <tr class="header">
+        <td>Projects</td>
+        <td class="">Net Score</td>
+
+        <td class="user">Developer</td>
+        <td class="user">Consumer</td>
+        <td class="user">Operator</td>
+        <td class="user">OEM</td>
+        <td class="user end">Mozilla</td>
+
+        <td class="mktgoal">Revenue</td>
+        <td class="mktgoal">Powering App Stores</td>
+        <td class="mktgoal end">Web Apps Rule</td>
+
+        <td class="internal">Tech</td>
+        <td class="internal">Legal</td>
+        <td class="internal end">Urgency</td>
+
+        <td class="mozgoal">Community</td>
+        <td class="mozgoal">Sustainability</td>
+        <td class="mozgoal">Fx Growth</td>
+        <td class="mozgoal">New Services</td>
+        <td class="mozgoal end">Scale FxOS</td>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in results %}
+        <tr id="{{item['Feature Requested']|safe|lower|replace(" ","_")}}">
+          <td class="project" title="{{item['Description & Justification']|safe|lower}}">
+            {%- if item['podio_link'] -%}
+              <a href="{{ item['podio_link'] }}#edit" target="_blank"><img class="link" src="static/external_link.svg" /></a>
+            {%- endif -%}
+            {{ item['Feature Requested'] }}
+          </td>
+          <td class="">{{ item['Net Score'] }}</td>
+          <td class="user">{{ item['Developer'] }}</td>
+          <td class="user">{{ item['Consumer'] }}</td>
+          <td class="user">{{ item['Operator'] }}</td>
+          <td class="user">{{ item['OEM'] }}</td>
+          <td class="user end">{{ item['Internal Mozilla'] }}</td>
+
+          <td class="mktgoal">{{ item['Revenue'] }}</td>
+          <td class="mktgoal">{{ item['Powering App Stores'] }}</td>
+          <td class="mktgoal end">{{ item['Web Apps Rule'] }}</td>
+
+          <td class="internal">{{ item['Technology (Scalability / Debt)'] }}</td>
+          <td class="internal">{{ item['Legal / Compliance'] }}</td>
+          <td class="internal end">{{ item['Urgency / Timeliness'] }}</td>
+
+          <td class="mozgoal">{{ item['Enabling Community'] }}</td>
+          <td class="mozgoal">{{ item['Sustainability'] }}</td>
+          <td class="mozgoal">{{ item['Fx Growth'] }}</td>
+          <td class="mozgoal">{{ item['New Services'] }}</td>
+          <td class="mozgoal end">{{ item['Scale FxOS'] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
