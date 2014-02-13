@@ -92,6 +92,7 @@ def scoreboard():
         # set a default because we sort on it
         o['Net Score'] = 0
 
+        # TODO: this whole thing should be a function to share with home()
         for f in i['fields']:
 
             if f['type'] == 'text':

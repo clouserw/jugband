@@ -47,11 +47,12 @@
     <tbody>
       {% for item in results %}
         <tr id="{{item['Feature Requested']|safe|lower|replace(" ","_")}}">
-          <td class="project" title="{{item['Description & Justification']|safe|lower}}">
+          <td>
             {%- if item['podio_link'] -%}
               <a href="{{ item['podio_link'] }}#edit" target="_blank"><img class="link" src="static/external_link.svg" /></a>
             {%- endif -%}
-            {{ item['Feature Requested'] }}
+            <div class="project">{{ item['Feature Requested'] }}</div>
+            <div class="hideme summary">{{item['Description & Justification']|safe}}</div>
           </td>
           <td class="">{{ item['Net Score'] }}</td>
           <td class="user">{{ item['Developer'] }}</td>
@@ -77,4 +78,8 @@
       {% endfor %}
     </tbody>
   </table>
+  <div id="footnote">
+    <a href="http://micropipes.com/blog/2014/02/07/improving-our-process-part-1-identifying-priorities/">What is this?</a>
+  </div>
+  <script src="/static/scoreboard.js"></script>
 {% endblock %}
