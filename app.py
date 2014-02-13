@@ -23,8 +23,10 @@ def home():
                           local.PODIO_USER,
                           local.PODIO_PASS)
 
-    r = c.Application.get_items(local.PODIO_APPLICATION)
+    r = c.Application.get_items(local.PODIO_PROGRESS_APPLICATION)
 
+
+# TODO add memcache
     results = []
 
     for i in r['items']:
@@ -33,7 +35,10 @@ def home():
         if request.args.get('extrasauce'):
             o['podio_link'] = i['link']
 
+        o['name'] = i['title']
+
         for f in i['fields']:
+
 
             if f['type'] == 'text':
                 o[f['label']] = f['values'][0]['value']
@@ -60,7 +65,7 @@ def home():
         results.append(o)
 
     try:
-        results.sort(key=lambda x: (x['status'],x['priority'],x['name']))
+        results.sort(key=lambda x: (x['status'],x['name']))
     except KeyError:
         pass
 
@@ -77,9 +82,7 @@ def scoreboard():
                           local.PODIO_USER,
                           local.PODIO_PASS)
 
-    # TODO: this shouldn't be hardcoded, heh
-    # No filtering here yet...maybe we'll need that some day?
-    r = c.Application.get_items(6867369)
+    r = c.Item.filter(local.PODIO_FEATURE_APPLICATION, {'limit': 50})
 
     results = []
 

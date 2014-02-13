@@ -3,9 +3,14 @@ PODIO_PASS = ''
 PODIO_CLIENT_ID = ''
 PODIO_CLIENT_SECRET = ''
 
-# To find this, I did:
-# c.Space.find_by_url("")
+# This is still experimental so I'm not sure these will live separately
+# permanently but right now the priority/scoring is a separate app than the
+# progress of the feature.
+#
+# To find these, I did:
+# c.Space.find_by_url("https://podio.com/....")
 # xxxxx
 # c.Application.list_in_space(xxxxx)[0]['app_id']
 # yyyyy
-PODIO_APPLICATION = ''
+PODIO_FEATURE_APPLICATION = 6867369
+PODIO_PROGRESS_APPLICATION = 7024920

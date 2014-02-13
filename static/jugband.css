@@ -1,5 +1,6 @@
 table {
     margin: 5px 5px 5px 5px;
+    width: 99%;
 }
 
 td {
@@ -29,24 +30,10 @@ tr:target td {
     background-color: #ffa !important;
 }
 
-.audience {
-    font-size: .8em;
-    margin-left: 15px;
-    padding: 0px 2px 0px 2px;
-}
-
-.audience span {
-    display:inline-block;
-    height: 5px;
-    width: 7px;
-}
-
-.audience .on {
-    background-color: green;
-}
-
-.audience .off {
-    background-color: #ccc;
+#footer {
+    border-top: 1px solid #ccc;
+    text-align: center;
+    padding: 10px 10px 10px 10px;
 }
 
 .cancelled {
@@ -65,6 +52,11 @@ tr:target td {
     background-color: #efe;
 }
 
+.glyphicon {
+    font-size: 13px;
+    margin: 0px 2px 0px 2px;
+}
+
 .heroes {
     min-width: 150px;
     text-align: left;
@@ -72,12 +64,6 @@ tr:target td {
 
 .hideme {
     display:none;
-}
-
-.link {
-    width: 16px;
-    height: 16px;
-    padding: 1px 1px 1px 1px;
 }
 
 .na {
@@ -109,12 +95,8 @@ tr:target td {
     text-align: left;
 }
 
-.priority {
-    color: #050;
-    display: block;
-    font-size: .8em;
-    font-weight: normal;
-    text-align: left;
+.paused {
+    background-color: #eee;
 }
 
 .prod {
@@ -153,6 +135,9 @@ tr:target td {
 
 /* Scoreboard */
 
+thead {
+    border-bottom: 2px solid #000;
+}
 td.user {
     background-color: #eef;
 }
@@ -168,12 +153,17 @@ td.mozgoal {
 td.end {
     border-right: 1px solid #000;
 }
-thead {
-    border-bottom: 2px solid #000;
-}
-
 #footnote {
     padding: 10px 10px 10px 10px;
     text-align: right;
     font-size: .8em;
+}
+#legend {
+    text-align: right;
+    padding: 5px 15px 5px 5px;
+}
+#legend span {
+    padding: 5px 5px 5px 5px;
+    font-size: 1.2em;
+    border: 1px solid #aaa;
 }

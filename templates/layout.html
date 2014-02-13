@@ -8,17 +8,36 @@
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
   <link href="/static/jugband.css" rel="stylesheet">
+  {% block css %}
+  {% endblock css %}
 </head>
 <body>
   {% block nav %}
-    <div class="nav">
-      <ul>
-        <li><a href="?extrasauce=1">admin</a></li>
-        <li><a href="https://podio.com/mozillacom/marketplace/apps/projects/items/new">new</a></li>
-      </ul>
-    </div>
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">JugBand</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-left">
+            <li class="{% if request.path == '/' %}active{% endif %}"><a href="/">Activity</a></li>
+            <li class="{% if request.path.startswith('/scoreboard') %}active{% endif %}"><a href="/scoreboard">Opportunity Backlog</a></li>
+            </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="?extrasauce=1">Extra Sauce</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   {% endblock nav %}
   {% block body %}
   {% endblock body %}
+  {% block footer %}
+  <div id="footer">
+    Source on <a href="https://github.com/clouserw/jugband/">github</a>.
+  </div>
+  {% endblock footer %}
+  {% block js %}
+  {% endblock js %}
 </body>
 </html>
