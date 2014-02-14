@@ -1,22 +1,14 @@
 {% extends "layout.html" %}
 
-{%- macro status(val) -%}
-  {%- if val == "donesies" -%}
-    donesies
-  {%- elif val == "cancelled" -%}
-    cancelled
-  {%- endif -%}
-{%- endmacro -%}
-
 {% block body %}
   <table id="output">
     <thead>
       <tr>
         <td class="end" colspan="2"></td>
         <td class="user end" colspan="5">User Value</td>
-        <td class="mktgoal end" colspan="3"><a href="https://wiki.mozilla.org/Marketplace/2014_Goals">Marketplace Goals</a></td>
+        <td class="mktgoal end" colspan="3"><a href="https://wiki.mozilla.org/Marketplace/2014_Goals">2014 Marketplace Goals</a></td>
         <td class="internal end" colspan="3">Internal Necessity</td>
-        <td class="mozgoal end" colspan="5"><a href="https://wiki.mozilla.org/2014">Company Goals</a></td>
+        <td class="mozgoal end" colspan="5"><a href="https://wiki.mozilla.org/2014">2014 Company Goals</a></td>
       </tr>
       <tr class="header">
         <td class="">Opportunity Backlog (click titles for details)</td>
@@ -30,7 +22,7 @@
 
         <td class="mktgoal" title="Does this feature support a common platform for payments or drive measurable revenue for Marketplace?">Revenue</td>
         <td class="mktgoal" title="Does this request help our internal or 3rd party App Stores?">Powering App Stores</td>
-        <td class="mktgoal end" title="Will this increase presence of Top100 WebApps in Marketplace, or demonstrate how web apps are competitive to native?">Web Apps Rule</td>
+        <td class="mktgoal end" title="Will this increase the presence of the Top 100 WebApps in Marketplace, or demonstrate how web apps are competitive to native apps?">Web Apps Rule</td>
 
         <td class="internal" title="Does this effort make our technology more scalable or clear technical debt from our systems, significantly enabling upcoming work?">Tech</td>
         <td class="internal" title="Is this work required by law or by a contract into which Mozilla has entered with another party (or requires for it's own security or privacy mitigations)?">Legal</td>
