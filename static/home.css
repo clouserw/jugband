@@ -111,6 +111,7 @@ tr.angle th.optout {
 #lifecycle th {
     background: url("cycle.svg") center 50px no-repeat;
     background-size: 200px;
+    vertical-align: top;
 }
 
 #lifecyclehelp {
