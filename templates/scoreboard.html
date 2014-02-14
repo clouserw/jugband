@@ -1,38 +1,42 @@
 {% extends "layout.html" %}
 
+{% block css %}
+  <link href="/static/scoreboard.css" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
   <table id="output">
     <thead>
       <tr>
-        <td class="end" colspan="2"></td>
-        <td class="user end" colspan="5">User Value</td>
-        <td class="mktgoal end" colspan="3"><a href="https://wiki.mozilla.org/Marketplace/2014_Goals">2014 Marketplace Goals</a></td>
-        <td class="internal end" colspan="3">Internal Necessity</td>
-        <td class="mozgoal end" colspan="5"><a href="https://wiki.mozilla.org/2014">2014 Company Goals</a></td>
+        <th class="end" colspan="2"></td>
+        <th class="user end" colspan="5">User Value</td>
+        <th class="mktgoal end" colspan="3"><a href="https://wiki.mozilla.org/Marketplace/2014_Goals">2014 Marketplace Goals</a></td>
+        <th class="internal end" colspan="3">Internal Necessity</td>
+        <th class="mozgoal end" colspan="5"><a href="https://wiki.mozilla.org/2014">2014 Company Goals</a></td>
       </tr>
       <tr class="header">
-        <td class="">Opportunity Backlog (click titles for details)</td>
-        <td class="end">Score</td>
+        <th class="">Opportunity Backlog (click titles for details)</td>
+        <th class="end">Score</td>
 
-        <td class="user">Developer</td>
-        <td class="user">Consumer</td>
-        <td class="user">Operator</td>
-        <td class="user">OEM</td>
-        <td class="user end">Mozilla</td>
+        <th class="user">Developer</td>
+        <th class="user">Consumer</td>
+        <th class="user">Operator</td>
+        <th class="user">OEM</td>
+        <th class="user end">Mozilla</td>
 
-        <td class="mktgoal" title="Does this feature support a common platform for payments or drive measurable revenue for Marketplace?">Revenue</td>
-        <td class="mktgoal" title="Does this request help our internal or 3rd party App Stores?">Powering App Stores</td>
-        <td class="mktgoal end" title="Will this increase the presence of the Top 100 WebApps in Marketplace, or demonstrate how web apps are competitive to native apps?">Web Apps Rule</td>
+        <th class="mktgoal" title="Does this feature support a common platform for payments or drive measurable revenue for Marketplace?">Revenue</td>
+        <th class="mktgoal" title="Does this request help our internal or 3rd party App Stores?">Powering App Stores</td>
+        <th class="mktgoal end" title="Will this increase the presence of the Top 100 WebApps in Marketplace, or demonstrate how web apps are competitive to native apps?">Web Apps Rule</td>
 
-        <td class="internal" title="Does this effort make our technology more scalable or clear technical debt from our systems, significantly enabling upcoming work?">Tech</td>
-        <td class="internal" title="Is this work required by law or by a contract into which Mozilla has entered with another party (or requires for it's own security or privacy mitigations)?">Legal</td>
-        <td class="internal end" title="Indicate if there is a specific window of opportunity or immediate impact to be achieved.">Urgency</td>
+        <th class="internal" title="Does this effort make our technology more scalable or clear technical debt from our systems, significantly enabling upcoming work?">Tech</td>
+        <th class="internal" title="Is this work required by law or by a contract into which Mozilla has entered with another party (or requires for it's own security or privacy mitigations)?">Legal</td>
+        <th class="internal end" title="Indicate if there is a specific window of opportunity or immediate impact to be achieved.">Urgency</td>
 
-        <td class="mozgoal" title="Does this effort increase active contributors to our targeted initiatives by 10x?">Community</td>
-        <td class="mozgoal" title="Will this activity support the effort to raise diversified revenue?">Sustainability</td>
-        <td class="mozgoal" title="Does the result of this effort help grow both total users and hours of usage for the Firefox browser?">Fx Growth</td>
-        <td class="mozgoal" title="Will this effort drive the creation of New Fx Accounts?">New Services</td>
-        <td class="mozgoal end" title="Does this help the efforts of the FxOS team to get FxOS on 1% of new smartphones?">Scale FxOS</td>
+        <th class="mozgoal" title="Does this effort increase active contributors to our targeted initiatives by 10x?">Community</td>
+        <th class="mozgoal" title="Will this activity support the effort to raise diversified revenue?">Sustainability</td>
+        <th class="mozgoal" title="Does the result of this effort help grow both total users and hours of usage for the Firefox browser?">Fx Growth</td>
+        <th class="mozgoal" title="Will this effort drive the creation of New Fx Accounts?">New Services</td>
+        <th class="mozgoal end" title="Does this help the efforts of the FxOS team to get FxOS on 1% of new smartphones?">Scale FxOS</td>
 
       </tr>
     </thead>
@@ -75,5 +79,4 @@
   <div id="footnote">
     <a href="http://micropipes.com/blog/2014/02/07/improving-our-process-part-1-identifying-priorities/">What is this page showing?</a>
   </div>
-  <script src="/static/scoreboard.js"></script>
 {% endblock %}

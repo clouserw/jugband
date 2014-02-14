@@ -9,4 +9,5 @@ $(function() {
   $('tr').click(function() {
     $(this).find(".hideme").toggle();
   });
+
 });

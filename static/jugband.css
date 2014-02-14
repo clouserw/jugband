@@ -7,19 +7,16 @@ td {
     padding: 2px 2px 2px 2px;
 }
 
-th {
-    color: #55f;
-    width: 50px;
-    height: 80px;
-    -webkit-transform: rotate(-60deg);
-    -moz-transform: rotate(-60deg);
-    -ms-transform: rotate(-60deg);
-    -o-transform: rotate(-60deg);
+td.end, th.end {
+    border-right: 1px solid #ccc;
+}
+
+th, tr {
+    text-align: center;
 }
 
 tr {
     border: 1px solid #ccc;
-    text-align: center;
 }
 
 tr:hover td {
@@ -30,140 +27,18 @@ tr:target td {
     background-color: #ffa !important;
 }
 
-#footer {
-    border-top: 1px solid #ccc;
-    text-align: center;
-    padding: 10px 10px 10px 10px;
-}
-
-.cancelled {
-    background-color: #fee;
-}
-
-.dev, .prod, .ux {
-    display:block;
-}
-
-.dev {
-    color: #ff7400;
-}
-
-.donesies {
-    background-color: #efe;
-}
-
 .glyphicon {
     font-size: 13px;
     margin: 0px 2px 0px 2px;
 }
 
-.heroes {
-    min-width: 150px;
-    text-align: left;
-}
-
 .hideme {
     display:none;
+    text-align:left;
 }
 
-.na {
-    color: #339;
-    font-size: .9em;
-}
-
-.na:before {
-    content: "n/a";
-}
-
-.nav {
-    float: right;
-}
-
-.no {
-    color: #fcc;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-.no:before {
-    content: "-";
-}
-
-.note {
-    border-left: 1px solid #ccc;
-    min-width: 300px;
-    text-align: left;
-}
-
-.paused {
-    background-color: #eee;
-}
-
-.prod {
-    color: #889640;
-}
-
-.project {
-    font-weight: bold;
-    min-width: 200px;
-    text-align: left;
-}
-
-.summary {
-    text-align: left;
-}
-
-.ux {
-    color: #a64b00;
-}
-
-.yes {
-    color: green;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-.yes:before {
-    content: "✔";
-}
-
-.yes span {
-    font-size: .8em;
-}
-
-
-
-/* Scoreboard */
-
-thead {
-    border-bottom: 2px solid #000;
-}
-td.user {
-    background-color: #eef;
-}
-td.mktgoal {
-    background-color: #fef;
-}
-td.internal {
-    background-color: #fee;
-}
-td.mozgoal {
-    background-color: #dee;
-}
-td.end {
-    border-right: 1px solid #000;
-}
-#footnote {
+#footer {
+    border-top: 1px solid #ccc;
+    text-align: center;
     padding: 10px 10px 10px 10px;
-    text-align: right;
-    font-size: .8em;
-}
-#legend {
-    text-align: right;
-    padding: 5px 15px 5px 5px;
-}
-#legend span {
-    padding: 5px 5px 5px 5px;
-    font-size: 1.2em;
-    border: 1px solid #aaa;
 }
