@@ -7,7 +7,7 @@ $(function() {
 
   // Toggle summary if you click on a row
   $('tr').click(function() {
-    $(this).find(".hideme").toggle();
+    $(this).find(".hideme").slideToggle();
   });
 
 });

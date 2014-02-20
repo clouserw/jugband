@@ -7,6 +7,10 @@ td {
     padding: 2px 2px 2px 2px;
 }
 
+td.flag {
+    white-space: nowrap;
+}
+
 td.end, th.end {
     border-right: 1px solid #ccc;
 }

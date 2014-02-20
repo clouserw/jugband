@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
 {%- macro status(val) -%}
-  {%- if val == "donesies" -%}
-    donesies
-  {%- elif val == "paused" -%}
-    paused
-  {%- elif val == "cancelled" -%}
-    cancelled
+  {%- if val == "yes" -%}
+    <span class="yes">✔</span>
+  {%- elif val == "no" -%}
+    <span class="no">-<span>
+  {%- elif val == "na" -%}
+    <span class="na">n/a</span>
   {%- endif -%}
 {%- endmacro -%}
 
@@ -24,29 +24,30 @@
           <div class="hideme">
             <p><strong>Input:</strong> You need a passionate person to pitch an
                idea.  A champion.  They should have an idea of what value they are adding, what
-               business/Marketplace/Company goals they are fulfilling, what kind of a budget
+               business/Marketplace/company goals they are fulfilling, what kind of a budget
                would be needed and a rough idea of scope.</p>
-            <p><strong>Output:</strong> This is a document answering the
+            <p><strong>Output:</strong> A document answering the
                questions above, identifying the champion as well as the UX, Product, and
                Developers who are interested.</p>
           </div>
         </th>
-        <th class="end" colspan="5">
-          <div>Define and Design</div>
+        <th class="end" colspan="2">
+          <div>Define &amp; Design</div>
           <div class="hideme">
-            <p><strong>Input:</strong> The document from the Concept stage should provide a strong platform to
-               define scope
-               idea.  A champion.  They should have an idea of what value they are adding, what
-               business/Marketplace/Company goals they are fulfilling, what kind of a budget
-               would be needed and a rough idea of scope.</p>
+            <p><strong>Input:</strong> The document from the Concept stage
+               should provide a strong platform to define scope and talk about
+               <strong>minimum viable product</strong> as well as a roadmap for
+               the future both for success (eg. make a v2) and failure (eg. feature
+               is removed).</p>
             <p><strong>Output:</strong> Everyone should have an understanding of
                the full scope of the project.  The details are written down (likely a PRD document) and mockups
                and visual design is complete.  The PRD includes user stories, functionality, and KPIs. Any additional
                reviews should be done before this phase is complete.</p>
+            <p><strong>Recommendation: use our <a href="">PRD template</a>.</strong></p>
           </div>
         </th>
-        <th class="end" colspan="3">
-          <div>Build and Test</div>
+        <th class="end" colspan="2">
+          <div>Build &amp; Test</div>
           <div class="hideme">
             <p><strong>Input:</strong> The PRD, mockups, designs, and supporting documents from the Define and Design phase.</p>
             <p><strong>Output:</strong> A shippable product.  Depending on it's size there may be one or more switches or steps to pushing it live.</p>
@@ -60,14 +61,14 @@
           </div>
         </th>
         <th class="end" colspan="2">
-          <div>Review and Tune</div>
+          <div>Review &amp; Tune</div>
           <div class="hideme">
             <p><strong>Input:</strong> Statistics and reporting from the product.  This phase may happen after a period of time has elapsed.</p>
             <p><strong>Output:</strong> Retrospectives, KPI evaluation, any contractual work.  The project is closed.</p>
           </div>
         </th>
         <th>
-          <div id="lifecyclehelp">Learn about the project lifecycle<span class="glyphicon glyphicon-collapse-down"></span></div>
+          <div id="lifecyclehelp">Learn about the project lifecycle <span class="glyphicon glyphicon-collapse-down"></span></div>
           <div class="hideme"><p>Hover over the individual column headers below for more details about each one.</p></div>
         </th>
       </tr>
@@ -76,45 +77,55 @@
         <th title="Who is working on the project?  Developers, Product, and UX.">Heroes</th>
         <th title="What value are we adding? What are the business goals? Do we have interest? Do we have budget? Who is championing the idea? What is the scope proposal?" class="end">Concept</th>
         <th title="What is the scope? Who are our partners? What does it look like?  What is the functionality? How do we measure success? User stories, mockups, and PRDs live here.">Design</th>
-        <th title="How are we going to implement this? How will we scale? Do we need hardware or buy-in?">Dev&nbsp;Plan</th>
-        <th title="Security Review">Sec&nbsp;Review</th>
-        <th title="Privacy Review">Pvcy&nbsp;Review</th>
-        <th title="Final signoff before implementation" class="end">Handoff</th>
-        <th title="Have the bugs been filed?">Bugs&nbsp;Filed</th>
+        <th title="Final signoff before implementation.  Specs shouldn't change after this point." class="end">Finalize</th>
         <th title="Has the code been written?">Coding</th>
-        <th title="Has QA signed off?" class="end">Test</th>
+        <th title="Has QA signed off?" class="end">Testing</th>
         <th title="" class="end">Launch</th>
-        <th title="How do we feel about launching this feature? What went well? What can we improve?">Review</th>
-        <th title="Are we achieving the goals we wanted to with the feature?  If not, should we remove it?" class="end">Perf&nbsp;Review</th>
-        <th class="optout"></th>
+        <th title="How do we feel about launching this feature? What went well? What can we improve?">Reflect</th>
+        <th title="Are we achieving the goals we wanted to with the feature?  If not, should we remove it?" class="end">Review</th>
+        <th class=""></th>
       </tr>
     </thead>
     <tbody>
       {% for item in results %}
-        <tr id="{{item['name']|safe|lower|replace(" ","_")}}" class="{{status(item['status'])}}">
+        <tr id="{{item['name']|safe|lower|replace(" ","_")}}" class="{{ item['status'] }}">
           <td class="project">
             {%- if item['podio_link'] -%}
               <a class="glyphicon glyphicon-pencil" href="{{ item['podio_link'] }}#edit" target="_blank"></a>
             {%- endif -%}
             {{ item['name'] }}
           </td>
-          <td class="heroes"><span class="dev">{{ item['developers'] }}</span><span class="prod">{{ item['product'] }}</span><span class="ux">{{ item['design'] }}</span></td>
-          <td class="{{ item['b_concept'] }} end"></td>
-          <td class="{{ item['b_design'] }}">{% if item['prd'] %}<a class="glyphicon glyphicon-new-window" href="{{ item['prd'] }}" target="_blank"></a>{% endif %}</td>
-          <td class="{{ item['b_devplan'] }}"></td>
-          <td class="{{ item['b_secreview'] }}"></td>
-          <td class="{{ item['b_pvcyreview'] }}"></td>
-          <td class="{{ item['b_handoff'] }} end"></td>
-          <td class="{{ item['b_bugsfiled'] }}">
+          <td class="flag heroes">
+            <span class="dev" title="Development Team">{{ item['developers'] }}</span>
+            <span class="prod" title="Product Team">{{ item['product'] }}</span>
+            <span class="ux" title="User Interface Team">{{ item['design'] }}</span>
+          </td>
+          <td class="flag end">{{ status(item['b_concept']) }}</td>
+          <td class="flag percent">
+            {% if item['design_complete'] %}
+              <span>{{ item['design_complete'] }}%</span>
+            {% else %}
+              <span class="no">-</span>
+            {% endif %}
+            {% if item['prd'] %}
+              <a class="glyphicon glyphicon-new-window" href="{{ item['prd'] }}" target="_blank"></a>
+            {% endif %}
+          </td>
+          <td class="flag end">{{ status(item['b_handoff']) }} </td>
+          <td class="flag percent {% if not item['dev_complete'] %}no{% endif %}">
+            {% if item['dev_complete'] %}
+              <span>{{ item['dev_complete'] }}%</span>
+            {% else %}
+              <span class="no">-</span>
+            {% endif %}
             {% if item['bug'] %}
               <a class="glyphicon glyphicon-new-window" href="{{ item['bug'] }}"></a>
             {% endif %}
           </td>
-          <td class="{{ item['b_code'] }}">{% if item['dev_complete'] %}<span>{{ item['dev_complete'] }}%</span>{% endif %}</td>
-          <td class="{{ item['b_test'] }} end"></td>
-          <td class="{{ item['b_launch'] }} end"></td>
-          <td class="{{ item['b_review'] }}"></td>
-          <td class="{{ item['b_perfreview'] }} end"></td>
+          <td class="flag end">{{ status(item['b_test']) }}</td>
+          <td class="flag end">{{ status(item['b_launch']) }}</td>
+          <td class="flag">{{ status(item['b_review']) }}</td>
+          <td class="flag end">{{ status(item['b_perfreview']) }}</td>
           <td class="note">{{ item['notes']|safe }}</td>
         </tr>
       {% endfor %}
@@ -131,5 +142,4 @@
 
 {% block js %}
   <script src="/static/home.js"></script>
-  <script src="/static/scoreboard.js"></script>
 {% endblock %}

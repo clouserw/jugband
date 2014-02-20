@@ -1,25 +1,6 @@
 tr.angle th {
     color: #55f;
-    width: 50px;
-    height: 80px;
-    -webkit-transform: rotate(-60deg);
-    -moz-transform: rotate(-60deg);
-    -ms-transform: rotate(-60deg);
-    -o-transform: rotate(-60deg);
 }
-
-/* Purely to work around rendering bugs with angled headers.  Without this the
- * <th> overlaps everything around it.  This class lets you opt-out of angling
- * if you have a particularly large column. (eg. the notes column) */
-tr.angle th.optout {
-    width: auto;
-    height: auto;
-    -webkit-transform: none;
-    -moz-transform: none;
-    -ms-transform: none;
-    -o-transform: none;
-}
-
 
 /* Heroes column */
 .heroes {
@@ -45,24 +26,19 @@ tr.angle th.optout {
     color: #339;
     font-size: .9em;
 }
-.na:before {
-    content: "n/a";
-}
 .no {
     color: #fcc;
     font-size: 1.5em;
     font-weight: bold;
 }
-.no:before {
-    content: "-";
+.percent {
+    color: green;
+    font-weight: bold;
 }
 .yes {
     color: green;
     font-size: 1.5em;
     font-weight: bold;
-}
-.yes:before {
-    content: "✔";
 }
 .yes span {
     font-size: .8em;
@@ -111,6 +87,7 @@ tr.angle th.optout {
 #lifecycle th {
     background: url("cycle.svg") center 50px no-repeat;
     background-size: 200px;
+    min-width: 130px;
     vertical-align: top;
 }
 
