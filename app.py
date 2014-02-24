@@ -20,13 +20,25 @@ def home():
     r = cache.get('api_progress')
     if not r:
         c = connect_podio()
-        r = c.Application.get_items(local.PODIO_PROGRESS_APPLICATION)
-        cache.set('api_progress', r, timeout=2 * 60)
+        # lol.  So, filters aren't documented very well in the podio
+        # docs, so here's the lowdown:  You need to pass in the IDs for
+        # both the keys and values here.  Values need to be in a list.
+        # You can get IDs out of the API results.
+        r = c.Item.filter(local.PODIO_PROGRESS_APPLICATION,
+                          {'limit': 50,
+                           'filters': {
+                               # Phase
+                               '52590680': [1,2,3,4,5,6,8],
+                               # Status
+                               '52611071': [1,2,3]}
+                          })
+    cache.set('api_progress', r, timeout=2 * 60)
 
+    # @TODO result too big for memcache
     results = parse_podio(r, extrasauce=request.args.get('extrasauce'))
 
     try:
-        results.sort(key=lambda x: (x['status'],x['name']))
+        results.sort(key=lambda x: (x['Phase']), reverse=True)
     except KeyError:
         pass
 

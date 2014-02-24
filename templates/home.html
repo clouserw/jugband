@@ -31,8 +31,8 @@
                Developers who are interested.</p>
           </div>
         </th>
-        <th class="end" colspan="2">
-          <div>Define &amp; Design</div>
+        <th class="end">
+          <div>Define</div>
           <div class="hideme">
             <p><strong>Input:</strong> The document from the Concept stage
                should provide a strong platform to define scope and talk about
@@ -43,11 +43,11 @@
                the full scope of the project.  The details are written down (likely a PRD document) and mockups
                and visual design is complete.  The PRD includes user stories, functionality, and KPIs. Any additional
                reviews should be done before this phase is complete.</p>
-            <p><strong>Recommendation: use our <a href="">PRD template</a>.</strong></p>
+            <p><strong>Recommendation: use our <a href="">PRD template</a> (coming soon).</strong></p>
           </div>
         </th>
         <th class="end" colspan="2">
-          <div>Build &amp; Test</div>
+          <div>Build</div>
           <div class="hideme">
             <p><strong>Input:</strong> The PRD, mockups, designs, and supporting documents from the Define and Design phase.</p>
             <p><strong>Output:</strong> A shippable product.  Depending on it's size there may be one or more switches or steps to pushing it live.</p>
@@ -61,7 +61,7 @@
           </div>
         </th>
         <th class="end" colspan="2">
-          <div>Review &amp; Tune</div>
+          <div>Review</div>
           <div class="hideme">
             <p><strong>Input:</strong> Statistics and reporting from the product.  This phase may happen after a period of time has elapsed.</p>
             <p><strong>Output:</strong> Retrospectives, KPI evaluation, any contractual work.  The project is closed.</p>
@@ -76,8 +76,7 @@
         <th title=""></th>
         <th title="Who is working on the project?  Developers, Product, and UX.">Heroes</th>
         <th title="What value are we adding? What are the business goals? Do we have interest? Do we have budget? Who is championing the idea? What is the scope proposal?" class="end">Concept</th>
-        <th title="What is the scope? Who are our partners? What does it look like?  What is the functionality? How do we measure success? User stories, mockups, and PRDs live here.">Design</th>
-        <th title="Final signoff before implementation.  Specs shouldn't change after this point." class="end">Finalize</th>
+        <th title="What is the scope? Who are our partners? What does it look like?  What is the functionality? How do we measure success? User stories, mockups, and PRDs live here." class="end">Design</th>
         <th title="Has the code been written?">Coding</th>
         <th title="Has QA signed off?" class="end">Testing</th>
         <th title="" class="end">Launch</th>
@@ -88,7 +87,7 @@
     </thead>
     <tbody>
       {% for item in results %}
-        <tr id="{{item['name']|safe|lower|replace(" ","_")}}" class="{{ item['status'] }}">
+        <tr id="{{item['name']|safe|lower|replace(" ","_")}}" class="{{ item['Status']|lower }}">
           <td class="project">
             {%- if item['podio_link'] -%}
               <a class="glyphicon glyphicon-pencil" href="{{ item['podio_link'] }}#edit" target="_blank"></a>
@@ -96,46 +95,57 @@
             {{ item['name'] }}
           </td>
           <td class="flag heroes">
-            <span class="dev" title="Development Team">{{ item['developers'] }}</span>
-            <span class="prod" title="Product Team">{{ item['product'] }}</span>
-            <span class="ux" title="User Interface Team">{{ item['design'] }}</span>
+            <span class="dev" title="Development Team">{{ item['team_developers'] }}</span>
+            <span class="prod" title="Product Team">{{ item['team_product'] }}</span>
+            <span class="ux" title="User Interface Team">{{ item['team_design'] }}</span>
           </td>
-          <td class="flag end">{{ status(item['b_concept']) }}</td>
-          <td class="flag percent">
-            {% if item['design_complete'] %}
-              <span>{{ item['design_complete'] }}%</span>
+          <td class="flag percent end">
+            {% if item['Concept'] %}
+              <span>{{ item['Concept'] }}%</span>
             {% else %}
               <span class="no">-</span>
             {% endif %}
-            {% if item['prd'] %}
-              <a class="glyphicon glyphicon-new-window" href="{{ item['prd'] }}" target="_blank"></a>
-            {% endif %}
           </td>
-          <td class="flag end">{{ status(item['b_handoff']) }} </td>
-          <td class="flag percent {% if not item['dev_complete'] %}no{% endif %}">
-            {% if item['dev_complete'] %}
-              <span>{{ item['dev_complete'] }}%</span>
+          <td class="flag percent end">
+            {% if item['Design'] %}
+              <span>{{ item['Design'] }}%</span>
             {% else %}
               <span class="no">-</span>
             {% endif %}
-            {% if item['bug'] %}
-              <a class="glyphicon glyphicon-new-window" href="{{ item['bug'] }}"></a>
+            {% if item['Design Specs'] %}
+              <a class="glyphicon glyphicon-new-window" href="{{ item['Design Specs'] }}" target="_blank"></a>
             {% endif %}
           </td>
-          <td class="flag end">{{ status(item['b_test']) }}</td>
-          <td class="flag end">{{ status(item['b_launch']) }}</td>
-          <td class="flag">{{ status(item['b_review']) }}</td>
-          <td class="flag end">{{ status(item['b_perfreview']) }}</td>
-          <td class="note">{{ item['notes']|safe }}</td>
+          <td class="flag percent {% if not item['Build'] %}no{% endif %}">
+            {% if item['Build'] %}
+              <span>{{ item['Build'] }}%</span>
+            {% else %}
+              <span class="no">-</span>
+            {% endif %}
+            {% if item['Build Bugs'] %}
+              <a class="glyphicon glyphicon-new-window" href="{{ item['Build Bugs'] }}"></a>
+            {% endif %}
+          </td>
+          <td class="flag percent {% if not item['Test'] %}no{% endif %} end">
+            {% if item['Test'] %}
+              <span>{{ item['Test'] }}%</span>
+            {% else %}
+              <span class="no">-</span>
+            {% endif %}
+          </td>
+          <td class="flag end">{{ status(item['Launch']) }}</td>
+          <td class="flag">{{ status(item['Reflect']) }}</td>
+          <td class="flag end">{{ status(item['Review']) }}</td>
+          <td class="note">{{ item['Next Step']|safe }}</td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
   <div id="legend">
-    <span class="active">Active</span>
-    <span class="cancelled">Cancelled</span>
+    <span class="green">On Track</span>
+    <span class="yellow">Dodgy</span>
+    <span class="red">In Trouble</span>
     <span class="paused">Paused</span>
-    <span class="donesies">Finished</span>
   </div>
   </div>
 {% endblock %}
