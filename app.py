@@ -7,7 +7,7 @@ from gevent.pywsgi import WSGIServer
 from werkzeug.contrib.cache import MemcachedCache
 
 import local
-from utils import calc_milestone, connect_podio, parse_podio
+from utils import calc_milestone, connect_podio, get_podio, parse_podio
 
 cache = MemcachedCache([os.getenv('MEMCACHE_URL', 'localhost:11211')])
 
@@ -17,25 +17,24 @@ app = Flask(__name__)
 @app.route('/')
 def home():
 
-    r = cache.get('api_progress')
-    if not r:
-        c = connect_podio()
+    results = None
+
+    if local.ENABLE_MEMCACHE:
+        results = cache.get('api_progress')
+
+    if not results:
         # lol.  So, filters aren't documented very well in the podio
         # docs, so here's the lowdown:  You need to pass in the IDs for
         # both the keys and values here.  Values need to be in a list.
         # You can get IDs out of the API results.
-        r = c.Item.filter(local.PODIO_PROGRESS_APPLICATION,
-                          {'limit': 50,
-                           'filters': {
-                               # Phase
-                               '52590680': [1,2,3,4,5,6,8],
-                               # Status
-                               '52611071': [1,2,3]}
-                          })
-    cache.set('api_progress', r, timeout=2 * 60)
 
-    # @TODO result too big for memcache
-    results = parse_podio(r, extrasauce=request.args.get('extrasauce'))
+        # Filter by Status != Paused
+        filters = {'limit': 100, 'filters': {'52611071': [1,2,3]}}
+        r = get_podio(local.PODIO_PROGRESS_APPLICATION, filters)
+        results = parse_podio(r, extrasauce=request.args.get('extrasauce'))
+
+    if local.ENABLE_MEMCACHE:
+        cache.set('api_progress', results, timeout=2 * 60)
 
     try:
         results.sort(key=lambda x: (x['Phase']), reverse=True)
@@ -48,13 +47,20 @@ def home():
 @app.route('/scoreboard')
 def scoreboard():
 
-    r = cache.get('api_scoreboard')
-    if not r:
-        c = connect_podio()
-        r = c.Item.filter(local.PODIO_FEATURE_APPLICATION, {'limit': 50})
-        cache.set('api_scoreboard', r, timeout=2 * 60)
+    results = None
 
-    results = parse_podio(r, extrasauce=request.args.get('extrasauce'))
+    if local.ENABLE_MEMCACHE:
+        results = cache.get('api_scoreboard')
+
+    if not results:
+        # Sort by "Net Score"
+        filters = {'limit': 150, 'sort_by': 53324605}
+        r = get_podio(local.PODIO_FEATURE_APPLICATION, filters)
+        results = parse_podio(r, extrasauce=request.args.get('extrasauce'))
+
+    if local.ENABLE_MEMCACHE:
+        cache.set('api_scoreboard', results, timeout=2 * 60)
+
 
     # We sort on "Net Score" so we need to make sure it's there
     for i, item in enumerate(results):

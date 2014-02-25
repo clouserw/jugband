@@ -43,6 +43,11 @@ def connect_podio():
                           local.PODIO_PASS)
     return c
 
+def get_podio(app, filters=None):
+    c = connect_podio()
+    r = c.Item.filter(app, filters)
+    return r
+
 
 def parse_podio(juicydata, extrasauce=None):
     """This converts the awesome-yet-very-verbose podio API output into
