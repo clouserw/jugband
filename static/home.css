@@ -70,6 +70,15 @@ tr.angle th {
     min-width: 200px;
     text-align: left;
 }
+.priority {
+    font-weight: normal;
+    font-size: .8em;
+    color: #040;
+}
+.team {
+    font-weight: normal;
+    font-size: .8em;
+}
 
 
 #legend {

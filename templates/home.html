@@ -92,7 +92,22 @@
             {%- if item['podio_link'] -%}
               <a class="glyphicon glyphicon-pencil" href="{{ item['podio_link'] }}#edit" target="_blank"></a>
             {%- endif -%}
+            <span class="priority">
+            {{ item['Priority'] }}
+            </span>
+            <span>
             {{ item['name'] }}
+            <div class="team">
+                {% if item['Team'] is string %}
+                    {{ item['Team'] }}
+                {% else %}
+                    {% for t in item['Team'] %}
+                        {{ t }},
+                    {% endfor %}
+                {% endif %}
+            </div>
+            </span>
+
           </td>
           <td class="flag heroes">
             <span class="dev" title="Development Team">{{ item['team_developers'] }}</span>
