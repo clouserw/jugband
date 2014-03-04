@@ -48,6 +48,7 @@ def home():
 def scoreboard():
 
     results = None
+    productarea = request.args.get('productarea')
 
     if local.ENABLE_MEMCACHE:
         results = cache.get('api_scoreboard')
@@ -55,6 +56,14 @@ def scoreboard():
     if not results:
         # Sort by "Net Score"
         filters = {'limit': 150, 'sort_by': 53324605}
+
+        if productarea == 'marketplace':
+            filters['filters'] = {'53338205': [5]}
+        elif productarea == 'amo':
+            filters['filters'] = {'53338205': [7]}
+        elif productarea == 'payments':
+            filters['filters'] = {'53338205': [6]}
+
         r = get_podio(local.PODIO_FEATURE_APPLICATION, filters)
         results = parse_podio(r, extrasauce=request.args.get('extrasauce'))
 
