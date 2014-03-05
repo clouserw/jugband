@@ -49,7 +49,7 @@ def get_podio(app, filters=None):
     return r
 
 
-def parse_podio(juicydata, extrasauce=None):
+def parse_podio(juicydata):
     """This converts the awesome-yet-very-verbose podio API output into
     something that is easier to use in our templates.
     """
@@ -60,8 +60,7 @@ def parse_podio(juicydata, extrasauce=None):
 
         o['name'] = i['title']
 
-        if extrasauce:
-            o['podio_link'] = i['link']
+        o['podio_link'] = i['link']
 
         for f in i['fields']:
 

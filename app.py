@@ -31,10 +31,10 @@ def home():
         # Filter by Status != Paused
         filters = {'limit': 100, 'filters': {'52611071': [1,2,3]}}
         r = get_podio(local.PODIO_PROGRESS_APPLICATION, filters)
-        results = parse_podio(r, extrasauce=request.args.get('extrasauce'))
+        results = parse_podio(r)
 
     if local.ENABLE_MEMCACHE:
-        cache.set('api_progress', results, timeout=2 * 60)
+        cache.set('api_progress', results, timeout=1 * 60)
 
     try:
         results.sort(key=lambda x: (x['Phase']), reverse=True)
@@ -65,10 +65,10 @@ def scoreboard():
             filters['filters'] = {'53338205': [6]}
 
         r = get_podio(local.PODIO_FEATURE_APPLICATION, filters)
-        results = parse_podio(r, extrasauce=request.args.get('extrasauce'))
+        results = parse_podio(r)
 
     if local.ENABLE_MEMCACHE:
-        cache.set('api_scoreboard', results, timeout=2 * 60)
+        cache.set('api_scoreboard', results, timeout=1 * 60)
 
 
     # We sort on "Net Score" so we need to make sure it's there
