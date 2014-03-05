@@ -90,7 +90,7 @@
     <tbody>
       {% for item in results %}
         <tr id="{{item['name']|safe|lower|replace(" ","_")}}" class="{{ item['Status']|lower }}">
-          <td class="">{{ item['Phase'][3:] }}</td>
+          <td class="">{{ item['Phase'][3:] }}<span class="tshirt" title="T-Shirt sizes:  S = 0-2 weeks; M=3-4 weeks; L = 4-6 weeks; XL = 7+ weeks">{{ item['T-shirt'] }}</span></td>
           <td class="">{{ item['Priority'] }}</td>
           <td class="project">
             {%- if item['podio_link'] -%}

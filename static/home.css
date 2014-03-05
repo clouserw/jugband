@@ -74,6 +74,10 @@ tr.angle th {
     font-weight: normal;
     font-size: .8em;
 }
+.tshirt {
+    display: block;
+    font-weight: bold;
+}
 
 
 #legend {
