@@ -1,3 +1,4 @@
+import json
 import os
 
 from flask import Flask
@@ -40,6 +41,9 @@ def home():
         results.sort(key=lambda x: (x['Phase']), reverse=True)
     except KeyError:
         pass
+
+    if 'application/json' in request.headers['Accept']:
+        return json.dumps({'podio': results})
 
     return render_template('home.html', results=results)
 
