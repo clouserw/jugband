@@ -18,72 +18,17 @@
   <div>
   <table id="output">
     <thead>
-      <tr id="lifecycle">
-        <th class="end" colspan="6">
-          <div>Concept</div>
-          <div class="hideme">
-            <p><strong>Input:</strong> You need a passionate person to pitch an
-               idea.  A champion.  They should have an idea of what value they are adding, what
-               business/Marketplace/company goals they are fulfilling, what kind of a budget
-               would be needed and a rough idea of scope.</p>
-            <p><strong>Output:</strong> A document answering the
-               questions above, identifying the champion as well as the UX, Product, and
-               Developers who are interested.</p>
-          </div>
-        </th>
-        <th class="end">
-          <div>Define</div>
-          <div class="hideme">
-            <p><strong>Input:</strong> The document from the Concept stage
-               should provide a strong platform to define scope and talk about
-               <strong>minimum viable product</strong> as well as a roadmap for
-               the future both for success (eg. make a v2) and failure (eg. feature
-               is removed).</p>
-            <p><strong>Output:</strong> Everyone should have an understanding of
-               the full scope of the project.  The details are written down (likely a PRD document) and mockups
-               and visual design is complete.  The PRD includes user stories, functionality, and KPIs. Any additional
-               reviews should be done before this phase is complete.</p>
-            <p><strong>Recommendation: use our <a href="https://docs.google.com/document/d/1CGcIItkIZ9euaq_rKwI_SYBPykdXjNxwkNi5jxEGYqU/edit">PRD template</a></strong></p>
-          </div>
-        </th>
-        <th class="end" colspan="2">
-          <div>Build</div>
-          <div class="hideme">
-            <p><strong>Input:</strong> The PRD, mockups, designs, and supporting documents from the Define and Design phase.</p>
-            <p><strong>Output:</strong> A shippable product.  Depending on it's size there may be one or more switches or steps to pushing it live.</p>
-          </div>
-        </th>
-        <th class="end">
-          <div>Launch</div>
-          <div class="hideme">
-            <p><strong>Input:</strong> The product.</p>
-            <p><strong>Output:</strong> It's enabled.  Perhaps in stages or to small groups at first.</p>
-          </div>
-        </th>
-        <th class="end" colspan="1">
-          <div>Review</div>
-          <div class="hideme">
-            <p><strong>Input:</strong> Statistics and reporting from the product.  This phase may happen after a period of time has elapsed.</p>
-            <p><strong>Output:</strong> Retrospectives, KPI evaluation, any contractual work.  The project is closed.</p>
-          </div>
-        </th>
-        <th>
-          <div id="lifecyclehelp">Learn about the project lifecycle <span class="glyphicon glyphicon-collapse-down"></span></div>
-          <div class="hideme"><p>Hover over the individual column headers below for more details about each one.</p></div>
-        </th>
-      </tr>
       <tr class="angle">
         <th title=""></th>
         <th title=""></th>
         <th title=""></th>
-        <th title="">Feature</th>
+        <th title=""></th>
         <th title="Who is working on the project?  Developers, Product, and UX." class="end">Heroes</th>
         <th title="What value are we adding? What are the business goals? Do we have interest? Do we have budget? Who is championing the idea? What is the scope proposal?" class="end">Define</th>
         <th title="What is the scope? Who are our partners? What does it look like?  What is the functionality? How do we measure success? User stories, mockups, and PRDs live here." class="end">Design</th>
         <th title="Has the code been written?" class="end">Coding</th>
         <th title="Has QA signed off?" class="end">Testing</th>
         <th title="" class="end">Launch</th>
-        <th title="Are we achieving the goals we wanted to with the feature?  If not, should we remove it?" class="end">Review</th>
         <th class=""></th>
       </tr>
     </thead>
@@ -160,8 +105,7 @@
               <a class="glyphicon glyphicon-new-window" href="{{ item['Support Docs'] }}" target="_blank"></a>
             {% endif %}
           </td>
-          <td class="flag end">{{ item['Target Launch']|prettydate }}</td>
-          <td class="flag end">{{ status(item['Review']) }}</td>
+          <td class="flag launch end">{{ item['Target Launch']|prettydate }}</td>
           <td class="note">{{ item['Next Step']|safe }}</td>
         </tr>
       {% endfor %}

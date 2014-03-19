@@ -61,9 +61,16 @@ tr.angle th {
 
 
 /* Other */
+.flag {
+    min-width: 100px;
+}
 .note {
     min-width: 300px;
     text-align: left;
+}
+.launch {
+    font-size: .9em;
+    font-weight: bold;
 }
 .project {
     font-weight: bold;
@@ -89,23 +96,4 @@ tr.angle th {
     padding: 5px 5px 5px 5px;
     font-size: 1.2em;
     border: 1px solid #aaa;
-}
-
-#lifecycle th div p {
-    font-weight: normal;
-}
-
-#lifecycle th {
-    background: url("cycle.svg") center 50px no-repeat;
-    background-size: 200px;
-    min-width: 130px;
-    vertical-align: top;
-}
-
-#lifecyclehelp {
-    color: #2a6496;
-}
-
-#lifecyclehelp:hover, #lifecyclehelp:focus {
-    text-decoration: underline;
 }
