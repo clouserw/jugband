@@ -19,7 +19,7 @@
   <table id="output">
     <thead>
       <tr id="lifecycle">
-        <th class="end" colspan="5">
+        <th class="end" colspan="6">
           <div>Concept</div>
           <div class="hideme">
             <p><strong>Input:</strong> You need a passionate person to pitch an
@@ -76,6 +76,7 @@
         <th title=""></th>
         <th title=""></th>
         <th title=""></th>
+        <th title=""></th>
         <th title="Who is working on the project?  Developers, Product, and UX.">Heroes</th>
         <th title="What value are we adding? What are the business goals? Do we have interest? Do we have budget? Who is championing the idea? What is the scope proposal?" class="end">Concept</th>
         <th title="What is the scope? Who are our partners? What does it look like?  What is the functionality? How do we measure success? User stories, mockups, and PRDs live here." class="end">Design</th>
@@ -89,7 +90,8 @@
     </thead>
     <tbody>
       {% for item in results %}
-        <tr id="{{item['name']|safe|lower|replace(" ","_")}}" class="{{ item['Status']|lower }}">
+        <tr id="{{item['name']|safe|lower|replace(" ","_")}}" class="">
+          <td class="">{{ loop.index }}</td>
           <td class="">{{ item['Phase'][3:] }}<span class="tshirt" title="T-Shirt sizes:  S = 0-2 weeks; M=3-4 weeks; L = 4-6 weeks; XL = 7+ weeks">{{ item['T-shirt'] }}</span></td>
           <td class="">{{ item['Priority'] }}</td>
           <td class="project">
@@ -115,14 +117,14 @@
             <span class="prod" title="Product Team">{{ item['team_product'] }}</span>
             <span class="ux" title="User Interface Team">{{ item['team_design'] }}</span>
           </td>
-          <td class="flag percent end">
+          <td class="flag percent end {{ item['Status']|lower }}">
             {% if item['Concept'] %}
               <span>{{ item['Concept'] }}%</span>
             {% else %}
               <span class="no">-</span>
             {% endif %}
           </td>
-          <td class="flag percent end">
+          <td class="flag percent end {{ item['Status']|lower }}">
             {% if item['Design'] %}
               <span>{{ item['Design'] }}%</span>
             {% else %}
@@ -132,7 +134,7 @@
               <a class="glyphicon glyphicon-new-window" href="{{ item['Requirements / Stories'] }}" target="_blank"></a>
             {% endif %}
           </td>
-          <td class="flag percent {% if not item['Build'] %}no{% endif %}">
+          <td class="flag percent {% if not item['Build'] %}no{% endif %} {{ item['Status']|lower }}">
             {% if item['Build'] %}
               <span>{{ item['Build'] }}%</span>
             {% else %}
@@ -142,7 +144,7 @@
               <a class="glyphicon glyphicon-new-window" href="{{ item['Build Bugs'] }}"></a>
             {% endif %}
           </td>
-          <td class="flag percent {% if not item['Test'] %}no{% endif %} end">
+          <td class="flag percent {% if not item['Test'] %}no{% endif %} end {{ item['Status']|lower }}">
             {% if item['Test'] %}
               <span>{{ item['Test'] }}%</span>
             {% else %}
