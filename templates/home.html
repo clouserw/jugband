@@ -60,7 +60,7 @@
             <p><strong>Output:</strong> It's enabled.  Perhaps in stages or to small groups at first.</p>
           </div>
         </th>
-        <th class="end" colspan="2">
+        <th class="end" colspan="1">
           <div>Review</div>
           <div class="hideme">
             <p><strong>Input:</strong> Statistics and reporting from the product.  This phase may happen after a period of time has elapsed.</p>
@@ -76,14 +76,13 @@
         <th title=""></th>
         <th title=""></th>
         <th title=""></th>
-        <th title=""></th>
-        <th title="Who is working on the project?  Developers, Product, and UX.">Heroes</th>
-        <th title="What value are we adding? What are the business goals? Do we have interest? Do we have budget? Who is championing the idea? What is the scope proposal?" class="end">Concept</th>
+        <th title="">Feature</th>
+        <th title="Who is working on the project?  Developers, Product, and UX." class="end">Heroes</th>
+        <th title="What value are we adding? What are the business goals? Do we have interest? Do we have budget? Who is championing the idea? What is the scope proposal?" class="end">Define</th>
         <th title="What is the scope? Who are our partners? What does it look like?  What is the functionality? How do we measure success? User stories, mockups, and PRDs live here." class="end">Design</th>
-        <th title="Has the code been written?">Coding</th>
+        <th title="Has the code been written?" class="end">Coding</th>
         <th title="Has QA signed off?" class="end">Testing</th>
         <th title="" class="end">Launch</th>
-        <th title="How do we feel about launching this feature? What went well? What can we improve?">Reflect</th>
         <th title="Are we achieving the goals we wanted to with the feature?  If not, should we remove it?" class="end">Review</th>
         <th class=""></th>
       </tr>
@@ -112,47 +111,56 @@
             </span>
 
           </td>
-          <td class="flag heroes">
+          <td class="flag heroes end">
             <span class="dev" title="Development Team">{{ item['team_developers'] }}</span>
             <span class="prod" title="Product Team">{{ item['team_product'] }}</span>
             <span class="ux" title="User Interface Team">{{ item['team_design'] }}</span>
           </td>
+
           <td class="flag percent end {{ item['Status']|lower }}">
             {% if item['Concept'] %}
               <span>{{ item['Concept'] }}%</span>
             {% else %}
-              <span class="no">-</span>
+              <span class="no">n/a</span>
+            {% endif %}
+            {% if item['Concept Docs'] %}
+              <a class="glyphicon glyphicon-new-window" href="{{ item['Concept Docs'] }}" target="_blank"></a>
             {% endif %}
           </td>
+
           <td class="flag percent end {{ item['Status']|lower }}">
             {% if item['Design'] %}
               <span>{{ item['Design'] }}%</span>
             {% else %}
-              <span class="no">-</span>
+              <span class="no">n/a</span>
             {% endif %}
             {% if item['Requirements / Stories'] %}
               <a class="glyphicon glyphicon-new-window" href="{{ item['Requirements / Stories'] }}" target="_blank"></a>
             {% endif %}
           </td>
-          <td class="flag percent {% if not item['Build'] %}no{% endif %} {{ item['Status']|lower }}">
+
+          <td class="flag percent {% if not item['Build'] %}no{% endif %} end {{ item['Status']|lower }}">
             {% if item['Build'] %}
               <span>{{ item['Build'] }}%</span>
             {% else %}
-              <span class="no">-</span>
+              <span class="no">n/a</span>
             {% endif %}
             {% if item['Build Bugs'] %}
               <a class="glyphicon glyphicon-new-window" href="{{ item['Build Bugs'] }}"></a>
             {% endif %}
           </td>
+
           <td class="flag percent {% if not item['Test'] %}no{% endif %} end {{ item['Status']|lower }}">
             {% if item['Test'] %}
               <span>{{ item['Test'] }}%</span>
             {% else %}
-              <span class="no">-</span>
+              <span class="no">n/a</span>
+            {% endif %}
+            {% if item['Support Docs'] %}
+              <a class="glyphicon glyphicon-new-window" href="{{ item['Support Docs'] }}" target="_blank"></a>
             {% endif %}
           </td>
-          <td class="flag end">{{ status(item['Launch']) }}</td>
-          <td class="flag">{{ status(item['Reflect']) }}</td>
+          <td class="flag end">{{ item['Target Launch']|prettydate }}</td>
           <td class="flag end">{{ status(item['Review']) }}</td>
           <td class="note">{{ item['Next Step']|safe }}</td>
         </tr>

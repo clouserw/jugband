@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 
@@ -87,6 +88,13 @@ def scoreboard():
 
     return render_template('scoreboard.html', results=results)
 
+@app.template_filter('prettydate')
+def prettydate(date):
+    if not date:
+        return ''
+
+    d = datetime.datetime.strptime(date, '%Y-%m-%d')
+    return d.strftime('%b %d')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

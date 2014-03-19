@@ -64,6 +64,9 @@ def parse_podio(juicydata):
 
         for f in i['fields']:
 
+            if f['type'] == 'date':
+                o[f['label']] = f['values'][0]['start_date']
+
             if f['type'] == 'text':
                 o[f['label']] = f['values'][0]['value']
 
@@ -89,3 +92,4 @@ def parse_podio(juicydata):
         results.append(o)
 
     return results
+
