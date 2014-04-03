@@ -10,16 +10,9 @@ tr.angle th {
 .dev, .prod, .ux {
     display:block;
 }
-.dev {
-    color: #ff7400;
+.dev, .prod, .ux {
+    color: #666;
 }
-.prod {
-    color: #889640;
-}
-.ux {
-    color: #a64b00;
-}
-
 
 /* Checkbox Values */
 .na {
@@ -80,6 +73,7 @@ tr.angle th {
 .team {
     font-weight: normal;
     font-size: .8em;
+    color: #666;
 }
 .tshirt {
     display: block;
