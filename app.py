@@ -30,8 +30,14 @@ def home():
         # both the keys and values here.  Values need to be in a list.
         # You can get IDs out of the API results.
 
-        # Filter by Status != Paused
-        filters = {'limit': 100, 'filters': {'52611071': [1,2,3]}}
+        filters = {'limit': 100,
+                   'filters': {
+                               # Status: Green, Yellow, Red
+                               '52611071': [1,2,3],
+                               # Team: Marketplace, Payments
+                               '52603290': [3,4]
+                               }
+                   }
         r = get_podio(local.PODIO_PROGRESS_APPLICATION, filters)
         results = parse_podio(r)
 
@@ -53,21 +59,19 @@ def home():
 def scoreboard():
 
     results = None
-    productarea = request.args.get('productarea')
 
     if local.ENABLE_MEMCACHE:
         results = cache.get('api_scoreboard')
 
     if not results:
-        # Sort by "Net Score"
-        filters = {'limit': 150, 'sort_by': 53324605}
-
-        if productarea == 'marketplace':
-            filters['filters'] = {'53338205': [5]}
-        elif productarea == 'amo':
-            filters['filters'] = {'53338205': [7]}
-        elif productarea == 'payments':
-            filters['filters'] = {'53338205': [6]}
+        filters = {'limit': 150,
+                   # Sort by Net Score
+                   'sort_by': 53324605,
+                   'filters': {
+                               # Product: Marketplace, Payments, AMO
+                               '53338205': [5,6,7]
+                               }
+                   }
 
         r = get_podio(local.PODIO_FEATURE_APPLICATION, filters)
         results = parse_podio(r)
