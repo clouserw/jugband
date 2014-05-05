@@ -1,0 +1,11 @@
+thead tr {
+  color: #55f;
+}
+th, tr {
+  text-align: left;
+}
+.team {
+    font-weight: normal;
+    font-size: .8em;
+    color: #666;
+}

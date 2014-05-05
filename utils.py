@@ -64,6 +64,16 @@ def parse_podio(juicydata):
 
         for f in i['fields']:
 
+            # Currently only retrieving the titles for linked apps
+            if f['type'] == 'app':
+                o[f['label']] = f['values'][0]['value']['title']
+
+            if f['type'] == 'app' and len (f['values']) > 1:
+                o[f['label']] = []
+
+                for v in f['values']:
+                    o[f['label']].append(v['value']['title'])
+
             if f['type'] == 'date':
                 o[f['label']] = f['values'][0]['start_date']
 

@@ -44,15 +44,52 @@ def home():
     if local.ENABLE_MEMCACHE:
         cache.set('api_progress', results, timeout=1 * 60)
 
+    if 'application/json' in request.headers['Accept']:
+        return json.dumps({'podio': results})
+
+    return render_template('home.html', results=results)
+
+
+@app.route('/ondeck')
+def ondeck():
+
+    results = None
+
+    if local.ENABLE_MEMCACHE:
+        results = cache.get('api_ondeck')
+
+    if not results:
+        filters = {'limit': 100,
+                   'sort_by': 53324605, # Net Score
+                   'filters': {
+                               # Status: On Deck.  Note this is querying a
+                               # different Application than above so this is a
+                               # different Status column.
+                               '60602479': [5],
+                               # Product: Marketplace, Payments, AMO
+                               '53338205': [5,6,7]
+                               }
+                   }
+        r = get_podio(local.PODIO_FEATURE_APPLICATION, filters)
+        results = parse_podio(r)
+
+    if local.ENABLE_MEMCACHE:
+        cache.set('api_ondeck', results, timeout=1 * 60)
+
+    # We sort on "Net Score" so we need to make sure it's there
+    for i, item in enumerate(results):
+        if not 'Net Score' in item:
+            results[i]['Net Score'] = 0
+
     try:
-        results.sort(key=lambda x: (x['Phase']), reverse=True)
+        results.sort(key=lambda x: (x['Net Score']), reverse=True)
     except KeyError:
         pass
 
     if 'application/json' in request.headers['Accept']:
         return json.dumps({'podio': results})
 
-    return render_template('home.html', results=results)
+    return render_template('ondeck.html', results=results)
 
 
 @app.route('/scoreboard')

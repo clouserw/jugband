@@ -1,0 +1,56 @@
+
+{% extends "layout.html" %}
+
+{% block css %}
+  <link href="/static/ondeck.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+  <div>
+  <table id="output">
+    <thead>
+      <tr class="angle">
+        <th title=""></th>
+        <th title=""></th>
+        <th title="">Net Score</th>
+        <th title="">Depends On</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in results %}
+        <tr id="{{item['name']|safe|lower|replace(" ","_")}}" class="">
+          <td class="">{{ loop.index }}</td>
+          <td class="project">
+            {%- if item['podio_link'] -%}
+              <a class="glyphicon glyphicon-pencil" href="{{ item['podio_link'] }}#edit" target="_blank"></a>
+            {%- endif -%}
+            <span>
+            {{ item['name'] }}
+            <div class="team">
+                {% if item['Product Area (primary)'] is string %}
+                    {{ item['Product Area (primary)'] }}
+                {% else %}
+                    {% for t in item['Product Area (primary)'] %}
+                        {{ t }},
+                    {% endfor %}
+                {% endif %}
+            </div>
+          </td>
+          <td class="end">
+              <span>{{ item['Net Score'] }}</span>
+          </td>
+          <td class="">
+              {% if item['Depends On'] is string %}
+                  {{ item['Depends On'] }}
+              {% else %}
+                  {% for t in item['Depends On'] %}
+                      {{ t }},
+                  {% endfor %}
+              {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+{% endblock %}

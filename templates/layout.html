@@ -20,8 +20,9 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-left">
-            <li class="{% if request.path == '/' %}active{% endif %}"><a href="/">Activity</a></li>
             <li class="{% if request.path.startswith('/scoreboard') %}active{% endif %}"><a href="/scoreboard">Feature Requests</a></li>
+            <li class="{% if request.path.startswith('/ondeck') %}active{% endif %}"><a href="/ondeck">On Deck</a></li>
+            <li class="{% if request.path == '/' %}active{% endif %}"><a href="/">Activity</a></li>
           </ul>
         </div>
       </div>
