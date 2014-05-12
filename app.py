@@ -31,6 +31,7 @@ def home():
         # You can get IDs out of the API results.
 
         filters = {'limit': 100,
+                   'sort_by': 52590680, # Phase
                    'filters': {
                                # Status: Green, Yellow, Red
                                '52611071': [1,2,3],
