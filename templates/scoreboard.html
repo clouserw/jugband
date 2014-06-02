@@ -16,7 +16,13 @@
       </tr>
       <tr class="header">
         <th class=""></th>
-        <th class="">Feature (click titles for details)</th>
+        <th class="">Feature (click titles for details)<br />
+          {% if request.args.get('onlywaiting','') %}
+            <a href="/scoreboard">Show All</a>
+          {% else %}
+            <a href="/scoreboard?onlywaiting=1">Show only Awaiting Delivery</a>
+          {% endif %}
+        </th>
         <th class="end">Score</th>
 
         <th class="user">Developer</th>

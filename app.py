@@ -100,8 +100,10 @@ def scoreboard():
 
     results = None
 
+    onlywaiting = request.args.get('onlywaiting','')
+
     if local.ENABLE_MEMCACHE:
-        results = cache.get('api_scoreboard')
+        results = cache.get('api_scoreboard_' + onlywaiting)
 
     if not results:
         filters = {'limit': 150,
@@ -113,11 +115,14 @@ def scoreboard():
                                }
                    }
 
+        if onlywaiting:
+            filters['filters']['60602479'] = [1];
+
         r = get_podio(local.PODIO_FEATURE_APPLICATION, filters)
         results = parse_podio(r)
 
     if local.ENABLE_MEMCACHE:
-        cache.set('api_scoreboard', results, timeout=1 * 60)
+        cache.set('api_scoreboard_' + onlywaiting, results, timeout=1 * 60)
 
 
     # We sort on "Net Score" so we need to make sure it's there
