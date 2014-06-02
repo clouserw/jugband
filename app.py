@@ -33,6 +33,8 @@ def home():
         filters = {'limit': 100,
                    'sort_by': 52590680, # Phase
                    'filters': {
+                               # Phase: All the phases except Complete
+                               '52590680': [1,2,3,4,5,6],
                                # Status: Green, Yellow, Red
                                '52611071': [1,2,3],
                                # Team: Marketplace, Payments
