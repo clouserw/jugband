@@ -40,7 +40,7 @@
           <td class="">{{ item['Priority'] }}</td>
           <td class="project">
             {%- if item['podio_link'] -%}
-              <a class="glyphicon glyphicon-pencil" href="{{ item['podio_link'] }}#edit" target="_blank"></a>
+              <a class="glyphicon glyphicon-pencil" href="{{ item['podio_link'] }}" target="_blank"></a>
             {%- endif -%}
             <span>
             {{ item['name'] }}
