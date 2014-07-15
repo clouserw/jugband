@@ -40,13 +40,7 @@
               <span>{{ item['Net Score'] }}</span>
           </td>
           <td class="">
-              {% if item['Depends On'] is string %}
-                  {{ item['Depends On'] }}
-              {% else %}
-                  {% for t in item['Depends On'] %}
-                      {{ t }},
-                  {% endfor %}
-              {% endif %}
+              {{ item['Notes / Dependencies']|safe }}
           </td>
         </tr>
       {% endfor %}
