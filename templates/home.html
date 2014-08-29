@@ -63,13 +63,13 @@
           </td>
 
           <td class="flag percent end {{ item['Status']|lower }}">
-            {% if item['Concept'] %}
-              <span>{{ item['Concept'] }}%</span>
+            {% if item['Define'] %}
+              <span>{{ item['Define'] }}%</span>
             {% else %}
               <span class="no">n/a</span>
             {% endif %}
-            {% if item['Concept Docs'] %}
-              <a class="glyphicon glyphicon-new-window" href="{{ item['Concept Docs'] }}" target="_blank"></a>
+            {% if item['Requirements / Stories'] %}
+              <a class="glyphicon glyphicon-new-window" href="{{ item['Requirements / Stories'] }}" target="_blank"></a>
             {% endif %}
           </td>
 
@@ -79,8 +79,8 @@
             {% else %}
               <span class="no">n/a</span>
             {% endif %}
-            {% if item['Requirements / Stories'] %}
-              <a class="glyphicon glyphicon-new-window" href="{{ item['Requirements / Stories'] }}" target="_blank"></a>
+            {% if item['Design Specs'] %}
+              <a class="glyphicon glyphicon-new-window" href="{{ item['Design Specs'] }}" target="_blank"></a>
             {% endif %}
           </td>
 
