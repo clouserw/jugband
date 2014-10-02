@@ -1,6 +1,9 @@
 thead {
     border-bottom: 2px solid #000;
 }
+thead th {
+  color: #000;
+}
 
 td.user {
     background-color: #eef;

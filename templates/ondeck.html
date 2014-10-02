@@ -1,50 +1,70 @@
 
 {% extends "layout.html" %}
 
-{% block css %}
-  <link href="/static/ondeck.css" rel="stylesheet">
-{% endblock %}
-
 {% block body %}
   <div>
   <table id="output">
     <thead>
       <tr class="angle">
-        <th title=""></th>
-        <th title=""></th>
-        <th title="">Net Score</th>
-        <th title="">Depends On</th>
+        <th class=""></th>
+        <th class=""></th>
+        <th class="end"></th>
+        <th title="" class="end">Concept</th>
+        <th title="What value are we adding? What are the business goals? Do we have interest? Do we have budget? Who is championing the idea? What is the scope proposal?" class="end">Define</th>
+        <th class="">Next Steps</th>
       </tr>
     </thead>
     <tbody>
       {% for item in results %}
         <tr id="{{item['name']|safe|lower|replace(" ","_")}}" class="">
           <td class="">{{ loop.index }}</td>
-          <td class="project">
+          <td class="">{{ item['Priority'] }}</td>
+          <td class="project end">
             {%- if item['podio_link'] -%}
               <a class="glyphicon glyphicon-pencil" href="{{ item['podio_link'] }}" target="_blank"></a>
             {%- endif -%}
             <span>
             {{ item['name'] }}
             <div class="team">
-                {% if item['Product Area (primary)'] is string %}
-                    {{ item['Product Area (primary)'] }}
+                {% if item['Team'] is string %}
+                    {{ item['Team'] }}
                 {% else %}
-                    {% for t in item['Product Area (primary)'] %}
+                    {% for t in item['Team'] %}
                         {{ t }},
                     {% endfor %}
                 {% endif %}
             </div>
+            </span>
+
           </td>
-          <td class="end">
-              <span>{{ item['Net Score'] }}</span>
+
+          <td class="flag percent end {{ item['Status']|lower }}">
+            {% if item['Concept'] %}
+              <span>{{ item['Concept'] }}%</span>
+            {% else %}
+              <span class="no">n/a</span>
+            {% endif %}
+            {% if item['Concept Docs'] %}
+              <a class="glyphicon glyphicon-new-window" href="{{ item['Concept Docs'] }}" target="_blank"></a>
+            {% endif %}
           </td>
-          <td class="">
-              {{ item['Notes / Dependencies']|safe }}
+
+          <td class="flag percent end {{ item['Status']|lower }}">
+            {% if item['Define'] %}
+              <span>{{ item['Define'] }}%</span>
+            {% else %}
+              <span class="no">n/a</span>
+            {% endif %}
+            {% if item['Requirements / Stories'] %}
+              <a class="glyphicon glyphicon-new-window" href="{{ item['Requirements / Stories'] }}" target="_blank"></a>
+            {% endif %}
           </td>
+
+          <td class="note">{{ item['Next Step']|safe }}</td>
+
         </tr>
       {% endfor %}
     </tbody>
   </table>
-  </div>
+</div>
 {% endblock %}

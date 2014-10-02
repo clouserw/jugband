@@ -1,15 +1,5 @@
 {% extends "layout.html" %}
 
-{%- macro status(val) -%}
-  {%- if val == "yes" -%}
-    <span class="yes">✔</span>
-  {%- elif val == "no" -%}
-    <span class="no">-<span>
-  {%- elif val == "na" -%}
-    <span class="na">n/a</span>
-  {%- endif -%}
-{%- endmacro -%}
-
 {% block css %}
   <link href="/static/home.css" rel="stylesheet">
 {% endblock %}
@@ -118,8 +108,4 @@
     <span class="paused">Paused</span>
   </div>
   </div>
-{% endblock %}
-
-{% block js %}
-  <script src="/static/home.js"></script>
 {% endblock %}

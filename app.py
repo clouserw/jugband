@@ -29,7 +29,6 @@ def home():
         # docs, so here's the lowdown:  You need to pass in the IDs for
         # both the keys and values here.  Values need to be in a list.
         # You can get IDs out of the API results.
-
         filters = {'limit': 100,
                    'sort_by': 52590680, # Phase
                    'filters': {
@@ -62,30 +61,30 @@ def ondeck():
         results = cache.get('api_ondeck')
 
     if not results:
+        # Right now this is the exact same query as home().  That means we could
+        # just use that cached value from memcache and save ourselves the
+        # roundtrip.  However, I'd like to let this bake for a bit before I take
+        # that code out as this stuff seems to change a lot still.
         filters = {'limit': 100,
-                   'sort_by': 53324605, # Net Score
+                   'sort_by': 52590680, # Phase
                    'filters': {
-                               # Status: On Deck.  Note this is querying a
-                               # different Application than above so this is a
-                               # different Status column.
-                               '60602479': [5],
-                               # Product: Marketplace, Payments, AMO
-                               '53338205': [5,6,7]
+                               # Phase: All the phases except Complete
+                               '52590680': [1,2,3,4,5,6],
+                               # Status: Green, Yellow, Red
+                               '52611071': [1,2,3],
+                               # Team: Marketplace, Payments
+                               '52603290': [3,4]
                                }
                    }
-        r = get_podio(local.PODIO_FEATURE_APPLICATION, filters)
+
+        r = get_podio(local.PODIO_PROGRESS_APPLICATION, filters)
         results = parse_podio(r)
 
     if local.ENABLE_MEMCACHE:
         cache.set('api_ondeck', results, timeout=1 * 60)
 
-    # We sort on "Net Score" so we need to make sure it's there
-    for i, item in enumerate(results):
-        if not 'Net Score' in item:
-            results[i]['Net Score'] = 0
-
     try:
-        results.sort(key=lambda x: (x['Net Score']), reverse=True)
+        results.sort(key=lambda x: (x['Priority']), reverse=False)
     except KeyError:
         pass
 

@@ -15,6 +15,10 @@ td.end, th.end {
     border-right: 1px solid #ccc;
 }
 
+th {
+  color: #55f;
+}
+
 th, tr {
     text-align: center;
 }
@@ -33,6 +37,10 @@ tr:target td {
     background-color: #ffa !important;
 }
 
+tr.angle th {
+    color: #55f;
+}
+
 .glyphicon {
     font-size: 13px;
     margin: 0px 2px 0px 2px;
@@ -42,6 +50,47 @@ tr:target td {
     display:none;
     text-align:left;
 }
+
+/* Percentage Values */
+.na {
+    color: #339;
+    font-size: .9em;
+}
+.no {
+    color: #a55;
+    font-size: 12px;
+    font-weight: bold;
+}
+.percent {
+    color: green;
+    font-weight: bold;
+}
+.yes {
+    color: green;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.yes span {
+    font-size: .8em;
+}
+
+/* Other */
+.note {
+    min-width: 300px;
+    text-align: left;
+}
+.project {
+    font-weight: bold;
+    min-width: 200px;
+    text-align: left;
+}
+.team {
+    font-weight: normal;
+    font-size: .8em;
+    color: #666;
+}
+
+
 
 #footer {
     border-top: 1px solid #ccc;
