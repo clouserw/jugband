@@ -32,8 +32,9 @@ def home():
         filters = {'limit': 100,
                    'sort_by': 52590680, # Phase
                    'filters': {
-                               # Phase: All the phases except Complete
-                               '52590680': [1,2,3,4,5,6],
+                               # Phase: All the phases except Concept, Define,
+                               # and Complete
+                               '52590680': [3,4,5,6],
                                # Status: Green, Yellow, Red
                                '52611071': [1,2,3],
                                # Team: Marketplace, Payments
@@ -61,16 +62,11 @@ def ondeck():
         results = cache.get('api_ondeck')
 
     if not results:
-        # Right now this is the exact same query as home().  That means we could
-        # just use that cached value from memcache and save ourselves the
-        # roundtrip.  However, I'd like to let this bake for a bit before I take
-        # that code out as this stuff seems to change a lot still.
         filters = {'limit': 100,
-                   'sort_by': 52590680, # Phase
                    'filters': {
-                               # Phase: All the phases except Complete
-                               '52590680': [1,2,3,4,5,6],
-                               # Status: Green, Yellow, Red
+                               # Phase: Concept and Define
+                               '52590680': [1,2],
+                               # Status: Green, Yellow, Red. (Read: not paused)
                                '52611071': [1,2,3],
                                # Team: Marketplace, Payments
                                '52603290': [3,4]
