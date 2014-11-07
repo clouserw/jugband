@@ -2,6 +2,8 @@ import datetime
 import json
 import os
 
+from operator import itemgetter
+
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -79,8 +81,13 @@ def ondeck():
     if local.ENABLE_MEMCACHE:
         cache.set('api_ondeck', results, timeout=1 * 60)
 
+    # Make sure 'Define' is there because we sort on it
+    for i, item in enumerate(results):
+        if not 'Define' in item:
+            results[i]['Define'] = 0
+
     try:
-        results.sort(key=lambda x: (x['Priority']), reverse=False)
+        results.sort(key=itemgetter('Define'), reverse=True)
     except KeyError:
         pass
 
