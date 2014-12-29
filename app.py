@@ -11,7 +11,7 @@ from gevent.pywsgi import WSGIServer
 from werkzeug.contrib.cache import MemcachedCache
 
 import local
-from utils import calc_milestone, connect_podio, get_podio, parse_podio
+from utils import connect_podio, get_podio, parse_podio
 
 cache = MemcachedCache([os.getenv('MEMCACHE_URL', 'localhost:11211')])
 
@@ -21,33 +21,24 @@ app = Flask(__name__)
 @app.route('/')
 def home():
 
-    results = None
-
-    if local.ENABLE_MEMCACHE:
-        results = cache.get('api_progress')
-
-    if not results:
-        # lol.  So, filters aren't documented very well in the podio
-        # docs, so here's the lowdown:  You need to pass in the IDs for
-        # both the keys and values here.  Values need to be in a list.
-        # You can get IDs out of the API results.
-        filters = {'limit': 100,
-                   'sort_by': 52590680, # Phase
-                   'filters': {
-                               # Phase: All the phases except Concept, Define,
-                               # and Complete
-                               '52590680': [3,4,5,6],
-                               # Status: Green, Yellow, Red
-                               '52611071': [1,2,3],
-                               # Team: Marketplace, Payments
-                               '52603290': [3,4]
-                               }
-                   }
-        r = get_podio(local.PODIO_PROGRESS_APPLICATION, filters)
-        results = parse_podio(r)
-
-    if local.ENABLE_MEMCACHE:
-        cache.set('api_progress', results, timeout=1 * 60)
+    # lol.  So, filters aren't documented very well in the podio
+    # docs, so here's the lowdown:  You need to pass in the IDs for
+    # both the keys and values here.  Values need to be in a list.
+    # You can get IDs out of the API results.
+    filters = {'limit': 100,
+               'sort_by': 52590680, # Phase
+               'filters': {
+                           # Phase: All the phases except Concept, Define,
+                           # and Complete
+                           '52590680': [3,4,5,6],
+                           # Status: Green, Yellow, Red
+                           '52611071': [1,2,3],
+                           # Team: Marketplace, Payments
+                           '52603290': [3,4]
+                           }
+               }
+    r = get_podio(local.PODIO_PROGRESS_APPLICATION, filters)
+    results = parse_podio(r)
 
     if 'application/json' in request.headers['Accept']:
         return json.dumps({'podio': results})
@@ -58,28 +49,19 @@ def home():
 @app.route('/ondeck')
 def ondeck():
 
-    results = None
+    filters = {'limit': 100,
+               'filters': {
+                           # Phase: Concept and Define
+                           '52590680': [1,2],
+                           # Status: Green, Yellow, Red. (Read: not paused)
+                           '52611071': [1,2,3],
+                           # Team: Marketplace, Payments
+                           '52603290': [3,4]
+                           }
+               }
 
-    if local.ENABLE_MEMCACHE:
-        results = cache.get('api_ondeck')
-
-    if not results:
-        filters = {'limit': 100,
-                   'filters': {
-                               # Phase: Concept and Define
-                               '52590680': [1,2],
-                               # Status: Green, Yellow, Red. (Read: not paused)
-                               '52611071': [1,2,3],
-                               # Team: Marketplace, Payments
-                               '52603290': [3,4]
-                               }
-                   }
-
-        r = get_podio(local.PODIO_PROGRESS_APPLICATION, filters)
-        results = parse_podio(r)
-
-    if local.ENABLE_MEMCACHE:
-        cache.set('api_ondeck', results, timeout=1 * 60)
+    r = get_podio(local.PODIO_PROGRESS_APPLICATION, filters)
+    results = parse_podio(r)
 
     # Make sure 'Define' is there because we sort on it
     for i, item in enumerate(results):
@@ -104,9 +86,6 @@ def scoreboard():
 
     onlywaiting = request.args.get('onlywaiting','')
 
-    if local.ENABLE_MEMCACHE:
-        results = cache.get('api_scoreboard_' + onlywaiting)
-
     if not results:
         filters = {'limit': 150,
                    # Sort by Net Score
@@ -122,10 +101,6 @@ def scoreboard():
 
         r = get_podio(local.PODIO_FEATURE_APPLICATION, filters)
         results = parse_podio(r)
-
-    if local.ENABLE_MEMCACHE:
-        cache.set('api_scoreboard_' + onlywaiting, results, timeout=1 * 60)
-
 
     # We sort on "Net Score" so we need to make sure it's there
     for i, item in enumerate(results):
@@ -150,7 +125,7 @@ def prettydate(date):
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     ip = '0.0.0.0'
-    #app.debug = True
+    app.debug = True
     http = WSGIServer((ip, port), app)
     print 'Listening at http://{ip}:{port}'.format(ip=ip, port=port)
     http.serve_forever()

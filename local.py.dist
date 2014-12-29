@@ -3,19 +3,13 @@ PODIO_PASS = ''
 PODIO_CLIENT_ID = ''
 PODIO_CLIENT_SECRET = ''
 
-# This is still experimental so I'm not sure these will live separately
-# permanently but right now the priority/scoring is a separate app than the
-# progress of the feature.
-#
-# To find these, I did:
-# c.Space.find_by_url("https://podio.com/....")
-# xxxxx
-# c.Application.list_in_space(xxxxx)[0]['app_id']
-# yyyyy
+# To find these IDs click the App, then click the wrench icon, scroll to
+# Advanced, and click Developer.
 PODIO_PROGRESS_APPLICATION = 6761871
-
-# After the latest modifications I don't think we use this number anymore.
-# Could remove!
 PODIO_FEATURE_APPLICATION = 6867369
+PODIO_COMPANY_GOALS = 6745352
+PODIO_MARKETPLACE_GOALS = 6744105
+PODIO_MARKETPLACE_TACTICS = 6745509
 
 ENABLE_MEMCACHE = True
+MEMCACHE_TIMEOUT = 1 * 60

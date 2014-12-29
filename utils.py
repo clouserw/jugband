@@ -1,5 +1,6 @@
 import os
 
+import hashlib
 import json
 import requests
 
@@ -10,32 +11,6 @@ import local
 
 cache = MemcachedCache([os.getenv('MEMCACHE_URL', 'localhost:11211')])
 
-
-def calc_milestone(url):
-    # TODO: handle more than github
-    # TODO: This is broken right now.  Miscalculating somehow
-
-    c = cache.get(url)
-
-    if not c:
-        r = requests.get(url)
-        if r.ok:
-            try:
-                c = r.json()
-                cache.set(url, c, timeout=2 * 60)
-            except requests.exceptions.RequestException as e:
-                c = None
-
-    try:
-        ret = "%.0f" % ((float(c['closed_issues']) /
-                         float(c['open_issues'])) * 100)
-    except:
-        ret = 0
-        pass
-
-    return ret
-
-
 def connect_podio():
     c = podio.OAuthClient(local.PODIO_CLIENT_ID,
                           local.PODIO_CLIENT_SECRET,
@@ -44,9 +19,21 @@ def connect_podio():
     return c
 
 def get_podio(app, filters=None):
-    c = connect_podio()
-    r = c.Item.filter(app, filters)
-    return r
+
+    results = None
+
+    if local.ENABLE_MEMCACHE:
+        _key = hashlib.md5(str(app) + json.dumps(filters))
+        results = cache.get(_key.hexdigest())
+
+    if not results:
+        c = connect_podio()
+        results = c.Item.filter(app, filters)
+
+    if local.ENABLE_MEMCACHE:
+        cache.set(_key.hexdigest(), results, timeout=local.MEMCACHE_TIMEOUT)
+
+    return results
 
 
 def parse_podio(juicydata):
