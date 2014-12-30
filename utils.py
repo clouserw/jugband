@@ -36,6 +36,37 @@ def get_podio(app, filters=None):
     return results
 
 
+def get_company_goals():
+
+    filters = {'limit': 20,
+               'filters': {
+                   'tags': ['2015']
+               }
+              }
+    r = get_podio(local.PODIO_COMPANY_GOALS, filters)
+    return parse_podio(r)
+
+def get_marketplace_goals():
+
+    filters = {'limit': 20,
+               'filters': {
+                   'tags': ['2015']
+               }
+              }
+    r = get_podio(local.PODIO_MARKETPLACE_GOALS, filters)
+    return parse_podio(r)
+
+def get_marketplace_items():
+
+    filters = {'limit': 100,
+               'filters': {
+                   'tags': ['2015']
+               }
+              }
+    r = get_podio(local.PODIO_PROGRESS_APPLICATION, filters)
+    return parse_podio(r)
+
+
 def parse_podio(juicydata):
     """This converts the awesome-yet-very-verbose podio API output into
     something that is easier to use in our templates.

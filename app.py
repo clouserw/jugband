@@ -5,7 +5,7 @@ import os
 from operator import itemgetter
 
 from flask import Flask
-from flask import jsonify
+from flask import make_response
 from flask import render_template
 from flask import request
 from gevent.pywsgi import WSGIServer
@@ -13,6 +13,7 @@ from werkzeug.contrib.cache import MemcachedCache
 
 import local
 from utils import connect_podio, get_podio, parse_podio
+from utils import get_company_goals, get_marketplace_goals, get_marketplace_items
 
 cache = MemcachedCache([os.getenv('MEMCACHE_URL', 'localhost:11211')])
 
@@ -147,33 +148,52 @@ def data_testo():
 @app.route('/data/rollup')
 def data_rollup():
 
-    #@TODO - remove duplication
+    nodes = []
+    edges = []
 
-    filters = {'limit': 20,
-               'filters': {
-                   'tags': ['2015']
-               }
-              }
-    r = get_podio(local.PODIO_COMPANY_GOALS, filters)
-    results = parse_podio(r)
+    # You're going to love this! So, the graphing library requires the JSON to
+    # be in a specific order (I know, I know, but do you want to die on that
+    # hill or ship this damn thing?).  So, we build lists below, but I have to
+    # know the indexes into the lists in order to draw the edges.  Voila.
+    _company_goals_index = {}
+    _marketplace_goals_index = {}
 
-    from collections import OrderedDict
-
-    # Alright, the OrderedDict stuff, the len(nodes), the indexing, and all of
-    # this other shit is pretty cheesy in here, but the graphing library depends
-    # on the order of the JSON it gets and you want to die on that hill or do
-    # you want to ship this damn thing?
-    nodes = OrderedDict()
-
+    # Get top level company goals
+    results = get_company_goals()
     for goal in results:
-        nodes[len(nodes)] = {'name': goal['Moz Objective'], 'group': 0}
+        _company_goals_index[goal['Moz Objective']] = len(nodes)
+        nodes.append({'name': goal['Moz Objective'], 'group': 0})
+
+    # Get Marketplace goals
+    results = get_marketplace_goals()
+    for goal in results:
+        _marketplace_goals_index[goal['MP Objective']] = len(nodes)
+        nodes.append({'name': goal['MP Objective'], 'group': 1})
+
+    # Get Marketplace deliverables
+    results = get_marketplace_items()
+    for item in results:
+        if type(item['MP Objective']) is list:
+            for goal in item['MP Objective']:
+                try:
+                    edges.append({'source':len(nodes),
+                                  'target': _marketplace_goals_index[goal]})
+                except KeyError:
+                    pass
+        else:
+            try:
+                edges.append({'source':len(nodes),
+                              'target': _marketplace_goals_index[item['MP Objective']]})
+            except KeyError:
+                pass
+        nodes.append({'name': item['name'], 'group': 2})
 
 
-    import pprint
-    x = pprint.pformat(nodes)
-    return jsonify(nodes)
-    return "<pre>" + x
-
+    # We can't use flask's jsonify() here because it messes with the order of
+    # the JSON
+    r = make_response(json.dumps({'nodes': nodes, 'links': edges}))
+    r.mimetype = 'application/json'
+    return r
 
 
 @app.template_filter('prettydate')
