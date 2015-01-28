@@ -10,20 +10,6 @@
     color: #666;
 }
 
-/* Row backgrounds */
-.green {
-    background-color: #efe;
-}
-.yellow {
-    background-color: #ffd;
-}
-.red {
-    background-color: #fee;
-}
-.paused {
-    background-color: #eee;
-}
-
 
 /* Other */
 .flag {

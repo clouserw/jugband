@@ -90,7 +90,19 @@ tr.angle th {
     color: #666;
 }
 
-
+/* Row backgrounds */
+.green {
+    background-color: #efe;
+}
+.yellow {
+    background-color: #ffd;
+}
+.red {
+    background-color: #fee;
+}
+.paused {
+    background-color: #eee;
+}
 
 #footer {
     border-top: 1px solid #ccc;
