@@ -92,8 +92,8 @@
             {% else %}
               <span class="no">n/a</span>
             {% endif %}
-            {% if item['Support Docs'] %}
-              <a class="glyphicon glyphicon-new-window" href="{{ item['Support Docs'] }}" target="_blank"></a>
+            {% if item['Test Plan'] %}
+              <a class="glyphicon glyphicon-new-window" href="{{ item['Test Plan'] }}" target="_blank"></a>
             {% endif %}
           </td>
           <td class="flag launch end">{{ item['Target Launch']|prettydate }}</td>
@@ -106,7 +106,6 @@
     <span class="green">On Track</span>
     <span class="yellow">Dodgy</span>
     <span class="red">In Trouble</span>
-    <span class="paused">Paused</span>
   </div>
   </div>
 {% endblock %}
