@@ -33,6 +33,9 @@
     font-size: .9em;
     font-weight: bold;
 }
+.minutes {
+    float: right;
+}
 .tshirt {
     display: block;
     font-weight: bold;
@@ -49,3 +52,4 @@
     font-size: 1.2em;
     border: 1px solid #aaa;
 }
+

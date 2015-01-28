@@ -97,7 +97,12 @@
             {% endif %}
           </td>
           <td class="flag launch end">{{ item['Target Launch_end']|prettydate }}</td>
-          <td class="note">{{ item['Next Step']|safe }}</td>
+          <td class="note">
+            {% if item['Meeting Minutes'] %}
+              <a class="glyphicon glyphicon-new-window minutes" href="{{ item['Meeting Minutes'] }}" target="_blank" title="Meeting Minutes"></a>
+            {% endif %}
+            {{ item['Next Step']|safe }}
+          </td>
         </tr>
       {% endfor %}
     </tbody>
