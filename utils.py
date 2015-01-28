@@ -62,7 +62,13 @@ def parse_podio(juicydata):
                     o[f['label']].append(v['value']['title'])
 
             if f['type'] == 'date':
-                o[f['label']] = f['values'][0]['start_date']
+                if 'start_date' in f['values'][0]:
+                    s_label = f['label'] + "_start"
+                    o[s_label] = f['values'][0]['start_date']
+
+                if 'end_date' in f['values'][0]:
+                    e_label = f['label'] + "_end"
+                    o[e_label] = f['values'][0]['end_date']
 
             if f['type'] == 'text':
                 o[f['label']] = f['values'][0]['value']

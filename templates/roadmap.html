@@ -1,0 +1,52 @@
+
+{% extends "layout.html" %}
+
+{% block body %}
+  <div>
+  <table id="output">
+    <thead>
+      <tr class="angle">
+        <th class="end"></th>
+        <th class="end" colspan="2">Target Dates</th>
+        <th title="" class="end">Design Brief</th>
+        <th class=""></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in results %}
+        <tr id="{{item['name']|safe|lower|replace(" ","_")}}" class="">
+          <td class="end">{{ loop.index }}</td>
+
+          <td class="flag launch">{{ item['Target Launch_start']|prettydate }}</td>
+          <td class="flag launch end">{{ item['Target Launch_end']|prettydate }}</td>
+
+          <td class="flag end">
+            {% if item['Design Brief'] %}
+              <a class="glyphicon glyphicon-new-window" href="{{ item['Design Brief'] }}" target="_blank"></a>
+            {% endif %}
+          </td>
+
+          <td class="project end">
+            {%- if item['podio_link'] -%}
+              <a class="glyphicon glyphicon-pencil" href="{{ item['podio_link'] }}" target="_blank"></a>
+            {%- endif -%}
+            <span>
+            {{ item['name'] }}
+            <div class="team">
+                {% if item['Team'] is string %}
+                    {{ item['Team'] }}
+                {% else %}
+                    {% for t in item['Team'] %}
+                        {{ t }},
+                    {% endfor %}
+                {% endif %}
+            </div>
+            </span>
+          </td>
+
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

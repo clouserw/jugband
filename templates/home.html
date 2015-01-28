@@ -96,7 +96,7 @@
               <a class="glyphicon glyphicon-new-window" href="{{ item['Test Plan'] }}" target="_blank"></a>
             {% endif %}
           </td>
-          <td class="flag launch end">{{ item['Target Launch']|prettydate }}</td>
+          <td class="flag launch end">{{ item['Target Launch_end']|prettydate }}</td>
           <td class="note">{{ item['Next Step']|safe }}</td>
         </tr>
       {% endfor %}

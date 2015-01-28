@@ -79,40 +79,36 @@ def ondeck():
     return render_template('ondeck.html', results=results)
 
 
-@app.route('/scoreboard')
-def scoreboard():
+@app.route('/roadmap')
+def roadmap():
 
-    results = None
+    filters = {'limit': 150,
+               'filters': {
+                           # Phase: Everything except Cancelled
+                           '52590680': [1,2,3,4,5,6,7],
+                           # Team: Marketplace, Payments
+                           '52603290': [3,4]
+                           }
+               }
 
-    onlywaiting = request.args.get('onlywaiting','')
+    r = get_podio(local.PODIO_PROGRESS_APPLICATION, filters)
+    results = parse_podio(r)
 
-    if not results:
-        filters = {'limit': 150,
-                   # Sort by Net Score
-                   'sort_by': 53324605,
-                   'filters': {
-                               # Product: Marketplace, Payments, AMO
-                               '53338205': [5,6,7]
-                               }
-                   }
-
-        if onlywaiting:
-            filters['filters']['60602479'] = [1];
-
-        r = get_podio(local.PODIO_FEATURE_APPLICATION, filters)
-        results = parse_podio(r)
-
-    # We sort on "Net Score" so we need to make sure it's there
+    # Make sure 'Define' is there because we sort on it
     for i, item in enumerate(results):
-        if not 'Net Score' in item:
-            results[i]['Net Score'] = 0
+        if not 'Target Launch_end' in item:
+            results[i]['Target Launch_end'] = 0
 
     try:
-        results.sort(key=lambda x: (x['Net Score']), reverse=True)
+        results.sort(key=itemgetter('Target Launch_end'))
     except KeyError:
         pass
 
-    return render_template('scoreboard.html', results=results)
+    if 'application/json' in request.headers['Accept']:
+        return json.dumps({'podio': results})
+
+    return render_template('roadmap.html', results=results)
+
 
 @app.template_filter('prettydate')
 def prettydate(date):
@@ -121,6 +117,7 @@ def prettydate(date):
 
     d = datetime.datetime.strptime(date, '%Y-%m-%d')
     return d.strftime('%b %d')
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
