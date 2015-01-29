@@ -9,6 +9,7 @@
         <th class=""></th>
         <th class=""></th>
         <th class="end"></th>
+        <th title="" class="end">Heroes</th>
         <th title="" class="end">Concept</th>
         <th title="What value are we adding? What are the business goals? Do we have interest? Do we have budget? Who is championing the idea? What is the scope proposal?" class="end">Define</th>
         <th class="">Next Steps</th>
@@ -37,6 +38,14 @@
             </span>
 
           </td>
+
+          <td class="flag heroes end">
+            <span class="project" title="Project Manager">{{ item['team_project'] }}</span>
+            <span class="dev" title="Development Team">{{ item['team_developers'] }}</span>
+            <span class="prod" title="Product Team">{{ item['team_product'] }}</span>
+            <span class="ux" title="User Interface Team">{{ item['team_design'] }}</span>
+          </td>
+
 
           <td class="flag percent end {{ item['Status']|lower }}">
             {% if item['Concept'] %}

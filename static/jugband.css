@@ -90,6 +90,18 @@ tr.angle th {
     color: #666;
 }
 
+/* Heroes column */
+.heroes {
+    min-width: 150px;
+    text-align: left;
+}
+.dev, .prod, .ux {
+    display:block;
+}
+.dev, .prod, .ux {
+    color: #666;
+}
+
 /* Row backgrounds */
 .green {
     background-color: #efe;

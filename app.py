@@ -122,7 +122,7 @@ def prettydate(date):
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     ip = '0.0.0.0'
-    app.debug = True
+    #app.debug = True
     http = WSGIServer((ip, port), app)
     print 'Listening at http://{ip}:{port}'.format(ip=ip, port=port)
     http.serve_forever()
