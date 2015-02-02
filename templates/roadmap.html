@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       {% for item in results %}
-        <tr id="{{item['name']|safe|lower|replace(" ","_")}}" class="">
+        <tr id="{{item['Feature']|safe|lower|replace(" ","_")}}" class="">
           <td class="end">{{ loop.index }}</td>
 
           <td class="flag launch">{{ item['Target Launch_start']|prettydate }}</td>
@@ -31,7 +31,7 @@
               <a class="glyphicon glyphicon-pencil" href="{{ item['podio_link'] }}" target="_blank"></a>
             {%- endif -%}
             <span>
-            {{ item['name'] }}
+            {{ item['Feature'] }}
             <div class="team">
                 {% if item['Team'] is string %}
                     {{ item['Team'] }}

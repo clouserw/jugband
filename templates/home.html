@@ -24,7 +24,7 @@
     </thead>
     <tbody>
       {% for item in results %}
-        <tr id="{{item['name']|safe|lower|replace(" ","_")}}" class="">
+        <tr id="{{item['Feature']|safe|lower|replace(" ","_")}}" class="">
           <td class="">{{ loop.index }}</td>
           <td class="">{{ item['Phase'][3:] }}<span class="tshirt" title="T-Shirt sizes:  S = 0-2 weeks; M=3-4 weeks; L = 4-6 weeks; XL = 7+ weeks">{{ item['T-shirt'] }}</span></td>
           <td class="">{{ item['Priority'] }}</td>
@@ -33,7 +33,7 @@
               <a class="glyphicon glyphicon-pencil" href="{{ item['podio_link'] }}" target="_blank"></a>
             {%- endif -%}
             <span>
-            {{ item['name'] }}
+            {{ item['Feature'] }}
             <div class="team">
                 {% if item['Team'] is string %}
                     {{ item['Team'] }}
