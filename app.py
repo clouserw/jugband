@@ -33,8 +33,8 @@ def home():
                            '52590680': [3,4,5,6],
                            # Status: Green, Yellow, Red
                            '52611071': [1,2,3],
-                           # Team: Marketplace, Payments
-                           '52603290': [3,4]
+                           # Team: Marketplace
+                           '52603290': [3]
                            }
                }
     r = get_podio(local.PODIO_PROGRESS_APPLICATION, filters)
@@ -55,8 +55,8 @@ def ondeck():
                            '52590680': [1,2],
                            # Status: Green, Yellow, Red. (Read: not paused)
                            '52611071': [1,2,3],
-                           # Team: Marketplace, Payments
-                           '52603290': [3,4]
+                           # Team: Marketplace
+                           '52603290': [3]
                            }
                }
 
@@ -86,8 +86,8 @@ def roadmap():
                'filters': {
                            # Phase: Everything except Cancelled
                            '52590680': [1,2,3,4,5,6,7],
-                           # Team: Marketplace, Payments
-                           '52603290': [3,4]
+                           # Team: Marketplace
+                           '52603290': [3]
                            }
                }
 
