@@ -7,7 +7,7 @@
     <thead>
       <tr class="angle">
         <th class="end"></th>
-        <th class="end" colspan="2">Target Dates</th>
+        <th class="end">Target Date</th>
         <th class="end">Design Brief</th>
         <th class="end">Idea</th>
         <th class="">Description</th>
@@ -18,7 +18,6 @@
         <tr id="{{item['Feature']|safe|lower|replace(" ","_")}}" class="">
           <td class="end">{{ loop.index }}</td>
 
-          <td class="flag launch">{{ item['Target Launch_start']|prettydate }}</td>
           <td class="flag launch end">{{ item['Target Launch_end']|prettydate }}</td>
 
           <td class="flag end">
