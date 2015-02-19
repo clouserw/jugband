@@ -8,8 +8,9 @@
       <tr class="angle">
         <th class="end"></th>
         <th class="end" colspan="2">Target Dates</th>
-        <th title="" class="end">Design Brief</th>
-        <th class=""></th>
+        <th class="end">Design Brief</th>
+        <th class="end">Idea</th>
+        <th class="">Description</th>
       </tr>
     </thead>
     <tbody>
@@ -42,6 +43,9 @@
                 {% endif %}
             </div>
             </span>
+          </td>
+          <td class="project end">
+            {{ item['Short Description']|safe }}
           </td>
 
         </tr>
