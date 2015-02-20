@@ -31,8 +31,8 @@ def home():
                            # Phase: All the phases except Concept, Define,
                            # and Complete
                            '52590680': [3,4,5,6],
-                           # Status: Green, Yellow, Red
-                           '52611071': [1,2,3],
+                           # Roadmap Status: Active
+                           '86551352': [2],
                            # Team: Marketplace
                            '52603290': [3]
                            }
@@ -51,10 +51,10 @@ def ondeck():
 
     filters = {'limit': 100,
                'filters': {
+                           # Roadmap Status: Active
+                           '86551352': [2],
                            # Phase: Concept and Define
                            '52590680': [1,2],
-                           # Status: Green, Yellow, Red. (Read: not paused)
-                           '52611071': [1,2,3],
                            # Team: Marketplace
                            '52603290': [3]
                            }
@@ -84,8 +84,8 @@ def roadmap():
 
     filters = {'limit': 150,
                'filters': {
-                           # Phase: Everything except Cancelled
-                           '52590680': [1,2,3,4,5,6,7],
+                           # Phase: Everything except Cancelled and Complete
+                           '52590680': [1,2,3,4,5,6],
                            # Team: Marketplace
                            '52603290': [3]
                            }
