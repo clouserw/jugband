@@ -1,4 +1,6 @@
 Jugband
 =======
 
-Not useful for anyone as of yet.  Just need a place to check in the code.
+Simple project tracking backed by podio.com APIs.
+
+Currently driving https://jugband.paas.allizom.org/
