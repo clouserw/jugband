@@ -2,78 +2,85 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <div>
-  <table id="output">
-    <thead>
-      <tr class="angle">
-        <th class=""></th>
-        <th class=""></th>
-        <th class="end"></th>
-        <th title="" class="end">Heroes</th>
-        <th title="" class="end">Concept</th>
-        <th title="What value are we adding? What are the business goals? Do we have interest? Do we have budget? Who is championing the idea? What is the scope proposal?" class="end">Define</th>
-        <th class="">Next Steps</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in results %}
-        <tr id="{{item['Feature']|safe|lower|replace(" ","_")}}" class="">
-          <td class="">{{ loop.index }}</td>
-          <td class="">{{ item['Priority'] }}</td>
-          <td class="project end">
-            {%- if item['podio_link'] -%}
-              <a class="glyphicon glyphicon-pencil" href="{{ item['podio_link'] }}" target="_blank"></a>
-            {%- endif -%}
-            <span>
-            {{ item['Feature'] }}
-            <div class="team">
-                {% if item['Team'] is string %}
+
+  {% for item in results %}
+
+    <article{% if item['Status'] %} class="{{ item['Status']|lower }}"{% endif %}>
+      <h2><span class="index">{{ loop.index }}</span>{{ item['Feature'] }}</h2>
+
+      {% if item['Team'] or item['Priority'] %}
+        <section class="meta">
+          <dl class="meta">
+            {% if item['Team'] %}
+              <di>
+                <dt>Team</dt>
+                <dd>
+                  {% if item['Team'] is string %}
                     {{ item['Team'] }}
-                {% else %}
+                  {% else %}
                     {% for t in item['Team'] %}
-                        {{ t }},
+                      {{ t }},
                     {% endfor %}
-                {% endif %}
-            </div>
-            </span>
-
-          </td>
-
-          <td class="flag heroes end">
-            <span class="project" title="Project Manager">{{ item['team_project'] }}</span>
-            <span class="dev" title="Development Team">{{ item['team_developers'] }}</span>
-            <span class="prod" title="Product Team">{{ item['team_product'] }}</span>
-            <span class="ux" title="User Interface Team">{{ item['team_design'] }}</span>
-          </td>
-
-
-          <td class="flag percent end {{ item['Status']|lower }}">
-            {% if item['Concept'] %}
-              <span>{{ item['Concept'] }}%</span>
-            {% else %}
-              <span class="no">n/a</span>
+                  {% endif %}
+                </dd>
+              </di>
             {% endif %}
-            {% if item['Concept Docs'] %}
-              <a class="glyphicon glyphicon-new-window" href="{{ item['Concept Docs'] }}" target="_blank"></a>
+            {% if item['Priority'] %}
+              <di>
+                <dt>Priority</dt>
+                <dd>{{ item['Priority'] }}</dd>
+              </di>
             {% endif %}
-          </td>
+          </dl>
+        </section>
+      {% endif %}
 
-          <td class="flag percent end {{ item['Status']|lower }}">
-            {% if item['Define'] %}
-              <span>{{ item['Define'] }}%</span>
-            {% else %}
-              <span class="no">n/a</span>
+      {% if item['podio_link'] or item['Stories / PRD'] or item['Concept Docs'] %}
+        <section class="links">
+          <h3>Links</h3>
+          <ul class="links">
+            {% if item['podio_link'] %}
+              <li><a href="{{ item['podio_link'] }}" target="_blank">Podio</a></li>
             {% endif %}
             {% if item['Stories / PRD'] %}
-              <a class="glyphicon glyphicon-new-window" href="{{ item['Stories / PRD'] }}" target="_blank"></a>
+              <li><a href="{{ item['Stories / PRD'] }}" target="_blank">Stories/PRD</a></li>
             {% endif %}
-          </td>
+            {% if item['Concept Docs'] %}
+              <li><a href="{{ item['Concept Docs'] }}" target="_blank">Concept Docs</a></li>
+            {% endif %}
 
-          <td class="note">{{ item['Next Step']|safe }}</td>
+          </ul>
+        </section>
+      {% endif %}
 
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
+      {% if item['Concept'] or item['Define'] %}
+        <section class="progress">
+          <h3>Progress</h3>
+          <dl>
+            {% if item['Concept'] %}
+              <di>
+                <dt>Concept</dt>
+                <dd class="concept"><span style="width: {{ item['Concept'] }}%">{{ item['Concept'] }}%</span></dd>
+              </di>
+            {% endif %}
+            {% if item['Define'] %}
+              <di>
+                <dt>Define</dt>
+                <dd class="define"><span style="width: {{ item['Define'] }}%">{{ item['Define'] }}%</span></dd>
+              </di>
+            {% endif %}
+          </dl>
+        </section>
+      {% endif %}
+
+      {% if item['Next Step'] %}
+        <section class="blockotext">
+          <h3>Next Steps</h3>
+          {{ item['Next Step']|safe }}
+        </section>
+      {% endif %}
+
+    </article>
+  {% endfor %}
+
 {% endblock %}
